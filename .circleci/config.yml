@@ -2,7 +2,7 @@
 version: 2
 
 defaults: &defaults
-  working_directory: ~/command-line-app
+  working_directory: ~/command-line-application
   docker:
     - image: circleci/node:latest-browsers
 
@@ -15,17 +15,17 @@ jobs:
           keys:
             # Find a cache corresponding to this specific package.json checksum
             # when this file is changed, this key will fail
-            - command-line-app-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
-            - command-line-app-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - command-line-app-{{ .Branch }}
+            - command-line-application-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+            - command-line-application-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - command-line-application-{{ .Branch }}
             # Find the most recent cache used from any branch
-            - command-line-app-master
-            - command-line-app-
+            - command-line-application-master
+            - command-line-application-
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
       - save_cache:
-          key: command-line-app-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+          key: command-line-application-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - node_modules
             - ~/.cache/yarn
@@ -38,7 +38,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/command-line-app
+          at: ~/command-line-application
       - run:
           name: Test
           command: yarn test
@@ -47,7 +47,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/command-line-app
+          at: ~/command-line-application
       - run:
           name: Build
           command: yarn build
@@ -60,7 +60,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/command-line-app
+          at: ~/command-line-application
       - run:
           name: Release
           command: yarn release

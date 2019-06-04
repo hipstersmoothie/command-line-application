@@ -1,15 +1,15 @@
 {
-  "name": "command-line-app",
+  "name": "command-line-application",
   "version": "0.1.0",
   "description": "A helpful wrapper around command-line-args and command-line-usage",
   "main": "dist/index.js",
-  "umd:main": "dist/command-line-app.umd.production.js",
-  "module": "dist/command-line-app.es.production.js",
+  "umd:main": "dist/command-line-application.umd.production.js",
+  "module": "dist/command-line-application.es.production.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "repository": "hipstersmoothie/command-line-app",
+  "repository": "hipstersmoothie/command-line-application",
   "author": "Andrew Lisowski <lisowski54@gmail.com>",
   "scripts": {
     "start": "tsdx watch",

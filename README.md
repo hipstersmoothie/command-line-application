@@ -1,13 +1,13 @@
-# command-line-app
+# command-line-application
 
 A helpful wrapper around command-line-args and command-line-usage
 
 ## Installation
 
 ```sh
-yarn add command-line-app
+yarn add command-line-application
 # or
-npm i --save command-line-app
+npm i --save command-line-application
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm i --save command-line-app
 ### A simple single command app
 
 ```ts
-import app, { Command } from 'command-line-app';
+import app, { Command } from 'command-line-application';
 
 const update: Command = {
   name: 'echo',
@@ -41,7 +41,7 @@ console.log(args);
 ### Complex examples
 
 ```ts
-import app, { Command } from 'command-line-app';
+import app, { Command } from 'command-line-application';
 
 const echo: Command = {
   examples: [{ example: 'echo foo', desc: 'The default use case' }],
@@ -52,7 +52,7 @@ const echo: Command = {
 ### Multi Command
 
 ```ts
-import app, { Command } from 'command-line-app';
+import app, { Command } from 'command-line-application';
 
 const test: Command = { ... };
 const lint: Command = { ... };
