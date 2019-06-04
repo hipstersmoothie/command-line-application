@@ -61,6 +61,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/command-line-application
+      - run: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run:
           name: Release
           command: yarn release
