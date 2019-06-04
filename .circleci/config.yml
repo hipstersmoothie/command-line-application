@@ -1,0 +1,101 @@
+
+version: 2
+
+defaults: &defaults
+  working_directory: ~/command-line-app
+  docker:
+    - image: circleci/node:latest-browsers
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package.json checksum
+            # when this file is changed, this key will fail
+            - command-line-app-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+            - command-line-app-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - command-line-app-{{ .Branch }}
+            # Find the most recent cache used from any branch
+            - command-line-app-master
+            - command-line-app-
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: command-line-app-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+          paths:
+            - node_modules
+            - ~/.cache/yarn
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/command-line-app
+      - run:
+          name: Test
+          command: yarn test
+
+  build:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/command-line-app
+      - run:
+          name: Build
+          command: yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  release:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/command-line-app
+      - run:
+          name: Release
+          command: yarn release
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - install:
+          filters:
+            tags:
+              only: /.*/
+    
+      - test:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /.*/
+    
+      - build:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /.*/
+    
+      - release:
+          requires:
+            
+            - test
+            
+            - build
+          filters:
+              branches:
+                only:
+                  - master
+    
