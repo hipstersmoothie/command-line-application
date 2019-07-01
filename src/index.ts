@@ -19,11 +19,11 @@ export type Command = {
 };
 
 export interface MultiCommand {
-  isMulti: true;
   name: string;
   logo?: string;
   description: string;
   options?: Option[];
+  commands: (Command | MultiCommand)[];
 }
 
 const help: Option = {
@@ -39,8 +39,6 @@ const globalOptions = [help];
 const arrayify = <T>(x: T | T[]): T[] => (Array.isArray(x) ? x : [x]);
 const hasGlobal = (options: Option[]) =>
   Boolean(options.find(option => option.group === 'global'));
-const getRootCommand = (commands: (Command | MultiCommand)[]) =>
-  commands.find((c): c is MultiCommand => 'isMulti' in c && c.isMulti);
 
 function styleTypes(command: Command, option: Option) {
   const isRequired = command.require && command.require.includes(option.name);
@@ -106,34 +104,28 @@ const printUsage = (command: Command) => {
   return;
 };
 
-const printRootUsage = (commands: (MultiCommand | Command)[]) => {
-  const root = getRootCommand(commands);
+const printRootUsage = (multi: MultiCommand) => {
   const subCommands =
-    commands.filter((c): c is Command => !('isMulti' in c)) || [];
-
-  if (!root) {
-    return;
-  }
-
-  const rootOptions = root.options || [];
+    multi.commands.filter((c): c is Command => !('isMulti' in c)) || [];
+  const rootOptions = multi.options || [];
   const options = [...rootOptions, ...globalOptions];
   const sections: commandLineUsage.Section[] = [];
 
-  if (root.logo) {
+  if (multi.logo) {
     sections.push({
-      content: root.logo,
+      content: multi.logo,
       raw: true,
     });
   }
 
   sections.push({
-    header: root.name,
-    content: root.description,
+    header: multi.name,
+    content: multi.description,
   });
 
   sections.push({
     header: 'Synopsis',
-    content: `$ ${root.name} <command> <options>`,
+    content: `$ ${multi.name} <command> <options>`,
   });
 
   const groups = subCommands.reduce((all, command) => {
@@ -167,6 +159,10 @@ const printRootUsage = (commands: (MultiCommand | Command)[]) => {
       })),
     });
   }
+
+  options.forEach(option => {
+    styleTypes(multi, option);
+  });
 
   sections.push({
     header: 'Global Options',
@@ -216,97 +212,61 @@ const parseCommand = (
 };
 
 export function app(
-  config: Command | (MultiCommand | Command)[]
+  command: Command | MultiCommand,
+  { argv }: { argv?: string[] } = {}
 ):
-  | ({ _command: string } & Record<string, any>)
+  | ({ _command: string | string[] } & Record<string, any>)
   | Record<string, any>
   | undefined {
-  const commands = arrayify(config);
-
-  if (commands.length === 1) {
-    return parseCommand(commands[0]);
+  if (!('commands' in command)) {
+    return parseCommand(command, argv);
   }
 
   const { global, _unknown } = commandLineArgs(globalOptions, {
     stopAtFirstUnknown: true,
     camelCase: true,
+    argv,
   });
 
   if (global.help) {
-    printRootUsage(commands);
+    printRootUsage(command);
     return;
   }
 
   if (_unknown && _unknown.length > 0) {
-    const root = getRootCommand(commands);
-    const rootOptions = root && root.options ? root.options || [] : [];
-    const command = commands.find(
+    const rootOptions = command.options ? command.options || [] : [];
+    const subCommand = command.commands.find(
       (c): c is Command => Boolean(c.name === _unknown[0])
     );
 
-    if (command) {
-      const options = [...(command.options || []), ...rootOptions];
-      const parsed = parseCommand({ ...command, options }, _unknown.slice(1));
+    if (subCommand) {
+      const options = [...(subCommand.options || []), ...rootOptions];
+      const parsed = app(
+        { ...subCommand, options },
+        { argv: _unknown.slice(1) }
+      );
 
       if (!parsed) {
         return;
       }
 
       return {
-        _command: command.name,
-        ...parseCommand({ ...command, options }, _unknown.slice(1)),
+        ...parsed,
+        _command:
+          '_command' in parsed
+            ? [subCommand.name, ...arrayify(parsed._command)]
+            : subCommand.name,
       };
     }
 
     return {
       _command: _unknown[0],
     };
+  } else {
+    printRootUsage(command);
+    console.log(`No sub-command provided to MultiCommand "${command.name}"`);
+    process.exit(1);
   }
 
   return global;
 }
-
-// // EXAMPLE
-
-// const interactive: Option = {
-//   name: 'interactive',
-//   type: Boolean,
-//   description: 'Run the application in interactive mode',
-// };
-
-// const debug: Option = {
-//   name: 'debug',
-//   type: Boolean,
-//   description: 'Run the application in debug mode',
-// };
-
-// const test: Command = {
-//   name: 'test',
-//   description: 'My single command application.',
-//   options: [interactive],
-//   examples: ['test --interactive'],
-//   group: 'Testing Commands',
-// };
-
-// const fix: Option = {
-//   name: 'fix',
-//   type: Boolean,
-//   description: 'Run the application in fix mode',
-// };
-
-// const lint: Command = {
-//   name: 'lint',
-//   description: 'My second command application.',
-//   options: [fix],
-//   examples: ['lint --fix'],
-//   group: 'Testing Commands',
-// };
-
-// const scripts: MultiCommand = {
-//   name: 'scripts',
-//   isMulti: true,
-//   description: 'My helper scripts',
-//   options: [debug],
-// };
-
-// commandLineApp([scripts, test, lint]);

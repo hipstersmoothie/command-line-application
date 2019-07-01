@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multi command app help 1`] = `
+Array [
+  "
+[4m[1mscripts[22m[24m
+
+  My scripts package 
+
+[4m[1mSynopsis[22m[24m
+
+  $ scripts <command> <options> 
+
+[4m[1mCommands[22m[24m
+
+  lint   lint the project 
+  test   test the project 
+
+[4m[1mGlobal Options[22m[24m
+
+  [1m-v[22m, [1m--verbose[22m    Log a bunch of stuff    
+  [1m-h[22m, [1m--help[22m       Display the help output 
+",
+]
+`;
+
+exports[`multi command app w/multi commands sub-multi-command help 1`] = `
+Array [
+  "
+[4m[1mcreate[22m[24m
+
+  create a new project 
+
+[4m[1mSynopsis[22m[24m
+
+  $ create <command> <options> 
+
+[4m[1mCommands[22m[24m
+
+  component   create a component 
+  project     create a project   
+
+[4m[1mGlobal Options[22m[24m
+
+  [1m--name[22m [4mstring[24m    The name of the thing to create 
+  [1m-v[22m, [1m--verbose[22m    Log a bunch of stuff            
+  [1m-h[22m, [1m--help[22m       Display the help output         
+",
+]
+`;
+
+exports[`multi command app w/multi commands sub-multi-command sub-command help 1`] = `
+Array [
+  "
+[4m[1mproject[22m[24m
+
+  create a project 
+
+[4m[1mOptions[22m[24m
+
+  [1m--cwd[22m            Use the current working directory 
+  [1m--name[22m [38;5;153m[4mstring[24m[39m    The name of the thing to create   
+  [1m-v[22m, [1m--verbose[22m    Log a bunch of stuff              
+  [1m-h[22m, [1m--help[22m       Display the help output           
+
+[4m[1mExamples[22m[24m
+
+  create project 
+",
+]
+`;
+
+exports[`single command app help 1`] = `
+Array [
+  "
+[4m[1mecho[22m[24m
+
+  Print a string to the terminal 
+
+[4m[1mOptions[22m[24m
+
+  [1m--value[22m [38;5;153m[4mstring[24m[39m   The value to print      
+  [1m-h[22m, [1m--help[22m       Display the help output 
+
+[4m[1mExamples[22m[24m
+
+  echo foo               
+  echo \\"Intense message\\" 
+",
+]
+`;

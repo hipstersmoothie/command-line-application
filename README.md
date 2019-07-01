@@ -19,7 +19,7 @@ npm i --save command-line-application
 ```ts
 import app, { Command } from 'command-line-application';
 
-const update: Command = {
+const echo: Command = {
   name: 'echo',
   description: 'Print a string to the terminal',
   examples: ['echo foo', 'echo "Intense message"'],
@@ -33,7 +33,7 @@ const update: Command = {
   ],
 };
 
-const args = app();
+const args = app(echo);
 
 // $ echo foo
 console.log(args);
@@ -53,17 +53,20 @@ const echo: Command = {
 
 ### Multi Command
 
+You can even nest multi-commands!
+
 ```ts
 import app, { Command } from 'command-line-application';
 
 const test: Command = { ... };
 const lint: Command = { ... };
-const update: Command = {
-  examples: [{ example: 'echo foo', desc: 'The default use case' }],
-  ...
+const scripts: MultiCommand = {
+  name: 'scripts',
+  descriptions: 'my tools',
+  commands: [test, lint]
 };
 
-const args = app([update, lint, test]);
+const args = app(scripts);
 
 // $ scripts test --fix
 console.log(args);
