@@ -1,14 +1,5 @@
 import { app, Command, MultiCommand } from '../src';
 
-expect.addSnapshotSerializer({
-  test: val => typeof val === 'string',
-  print: (val: string) =>
-    val
-      .split('\n')
-      .map(t => t.trimRight().replace('38;5;153m', '97m'))
-      .join('\n'),
-});
-
 beforeEach(() => {
   process.argv = [];
   jest.clearAllMocks();
