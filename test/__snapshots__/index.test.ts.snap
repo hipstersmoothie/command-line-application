@@ -42,7 +42,7 @@ Array [
 
 [4m[1mGlobal Options[22m[24m
 
-  [1m--name[22m [4mstring[24m    The name of the thing to create 
+  [1m--name[22m [38;5;153m[4mstring[24m[39m    The name of the thing to create 
   [1m-v[22m, [1m--verbose[22m    Log a bunch of stuff            
   [1m-h[22m, [1m--help[22m       Display the help output         
 ",
