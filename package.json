@@ -33,6 +33,7 @@
     "@types/jest": "^24.0.13",
     "auto": "^7.0.7",
     "husky": "^2.3.0",
+    "jest-snapshot-serializer-ansi": "^1.0.0",
     "prettier": "^1.17.1",
     "pretty-quick": "^1.10.0",
     "tsdx": "^0.5.11",
@@ -45,6 +46,11 @@
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
     "io-ts": "^1.8.6"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "jest-snapshot-serializer-ansi"
+    ]
   },
   "auto": {
     "plugins": [

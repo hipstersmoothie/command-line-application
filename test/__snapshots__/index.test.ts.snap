@@ -2,90 +2,90 @@
 
 exports[`multi command app help 1`] = `
 Array [
-  
-[4m[1mscripts[22m[24m
+  "
+scripts
 
-  My scripts package
+  My scripts package 
 
-[4m[1mSynopsis[22m[24m
+Synopsis
 
-  $ scripts <command> <options>
+  $ scripts <command> <options> 
 
-[4m[1mCommands[22m[24m
+Commands
 
-  lint   lint the project
-  test   test the project
+  lint   lint the project 
+  test   test the project 
 
-[4m[1mGlobal Options[22m[24m
+Global Options
 
-  [1m-v[22m, [1m--verbose[22m    Log a bunch of stuff
-  [1m-h[22m, [1m--help[22m       Display the help output
-,
+  -v, --verbose    Log a bunch of stuff    
+  -h, --help       Display the help output 
+",
 ]
 `;
 
 exports[`multi command app w/multi commands sub-multi-command help 1`] = `
 Array [
-  
-[4m[1mcreate[22m[24m
+  "
+create
 
-  create a new project
+  create a new project 
 
-[4m[1mSynopsis[22m[24m
+Synopsis
 
-  $ create <command> <options>
+  $ create <command> <options> 
 
-[4m[1mCommands[22m[24m
+Commands
 
-  component   create a component
-  project     create a project
+  component   create a component 
+  project     create a project   
 
-[4m[1mGlobal Options[22m[24m
+Global Options
 
-  [1m--name[22m [97m[4mstring[24m[39m    The name of the thing to create
-  [1m-v[22m, [1m--verbose[22m    Log a bunch of stuff
-  [1m-h[22m, [1m--help[22m       Display the help output
-,
+  --name string    The name of the thing to create 
+  -v, --verbose    Log a bunch of stuff            
+  -h, --help       Display the help output         
+",
 ]
 `;
 
 exports[`multi command app w/multi commands sub-multi-command sub-command help 1`] = `
 Array [
-  
-[4m[1mproject[22m[24m
+  "
+project
 
-  create a project
+  create a project 
 
-[4m[1mOptions[22m[24m
+Options
 
-  [1m--cwd[22m            Use the current working directory
-  [1m--name[22m [97m[4mstring[24m[39m    The name of the thing to create
-  [1m-v[22m, [1m--verbose[22m    Log a bunch of stuff
-  [1m-h[22m, [1m--help[22m       Display the help output
+  --cwd            Use the current working directory 
+  --name string    The name of the thing to create   
+  -v, --verbose    Log a bunch of stuff              
+  -h, --help       Display the help output           
 
-[4m[1mExamples[22m[24m
+Examples
 
-  create project
-,
+  create project 
+",
 ]
 `;
 
 exports[`single command app help 1`] = `
 Array [
-  
-[4m[1mecho[22m[24m
+  "
+echo
 
-  Print a string to the terminal
+  Print a string to the terminal 
 
-[4m[1mOptions[22m[24m
+Options
 
-  [1m--value[22m [97m[4mstring[24m[39m   The value to print
-  [1m-h[22m, [1m--help[22m       Display the help output
+  --value string   The value to print      
+  -h, --help       Display the help output 
 
-[4m[1mExamples[22m[24m
+Examples
 
-  echo foo
-  echo "Intense message"
-,
+  echo foo               
+  echo \\"Intense message\\" 
+",
 ]
 `;
