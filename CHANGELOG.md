@@ -1,3 +1,15 @@
+# v0.1.5 (Mon Jul 01 2019)
+
+#### 🐛  Bug Fix
+
+- better testing solution [#1](https://github.com/hipstersmoothie/command-line-application/pull/1) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.1.4 (Mon Jul 01 2019)
 
 #### ⚠️  Pushed to master
