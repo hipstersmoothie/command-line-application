@@ -2,13 +2,11 @@ import { app, Command, MultiCommand } from '../src';
 
 expect.addSnapshotSerializer({
   test: val => typeof val === 'string',
-  print: (val: string) => {
-    console.log(val.split('\n'));
-    return val
+  print: (val: string) =>
+    val
       .split('\n')
-      .map(t => t.trimRight())
-      .join('\n');
-  },
+      .map(t => t.trimRight().replace('38;5;153m', '97m'))
+      .join('\n'),
 });
 
 beforeEach(() => {
