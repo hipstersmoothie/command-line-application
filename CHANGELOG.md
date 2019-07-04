@@ -1,3 +1,16 @@
+# v0.1.8 (Thu Jul 04 2019)
+
+#### ⚠️  Pushed to master
+
+- correct lock file  ([@hipstersmoothie](https://github.com/hipstersmoothie))
+- remove markdown from footers when printing to CLI  ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.1.7 (Thu Jul 04 2019)
 
 #### ⚠️  Pushed to master
