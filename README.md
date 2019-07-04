@@ -72,3 +72,36 @@ const args = app(scripts);
 console.log(args);
 // output: { _command: 'test', fix: true }
 ```
+
+### Footers
+
+Add additional docs to your commands with Footers.
+
+```ts
+const echo: Command = {
+  name: 'echo',
+  description: 'Print a string to the terminal',
+  examples: ['echo foo', 'echo "Intense message"'],
+  options: [
+    {
+      name: 'value',
+      type: String,
+      defaultOption: true,
+      description: 'The value to print',
+    },
+  ],
+  footer: 'Only run this if you really need to',
+  // or
+  footer: {
+    header: 'Additional Info',
+    content: 'Only run this if you really need to',
+  },
+  // or
+  footer: [
+    {
+      header: 'Additional Info',
+      content: 'Only run this if you really need to',
+    },
+  ],
+};
+```

@@ -524,6 +524,11 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
+"@types/remove-markdown@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.npmjs.intuit.com:443/artifactory/api/npm/npm-intuit/@types/remove-markdown/-/remove-markdown-0.1.1.tgz#c79d3000df412526186b2af3808b85bee68bc907"
+  integrity sha1-x50wAN9BJSYYayrzgIuFvuaLyQc=
+
 "@types/resolve@0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-0.0.8.tgz#f26074d238e02659e323ce1a13d041eee280e194"
@@ -2230,11 +2235,6 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-fp-ts@^1.0.0:
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-1.18.1.tgz#c76ef38250125afbda5ad712a92750cc3e6ca6d9"
-  integrity sha512-esfGgsuc0S9Q23YnoWQH4DrnBIJ7LCbA7AsUKFwawVsYmVZ7Cl+3cjd8nAhJLWwpUKDRsBsMJOf+uX4ZakZMsQ==
-
 fragment-cache@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/fragment-cache/-/fragment-cache-0.2.1.tgz#4290fad27f13e89be7f33799c6bc5a0abfff0d19"
@@ -2691,13 +2691,6 @@ invert-kv@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
-
-io-ts@^1.8.6:
-  version "1.8.6"
-  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-1.8.6.tgz#43930e025b88bbb317cb193bd9af784322a6fed6"
-  integrity sha512-0V0gbEfW5FnlEL++hO+j1cbxSvhH3f/i5Puz5AjmN6Q071vJONWTuOHttMSe60gi4DBHBTd2eHbSnHv37ptTnQ==
-  dependencies:
-    fp-ts "^1.0.0"
 
 is-accessor-descriptor@^0.1.6:
   version "0.1.6"
@@ -4735,6 +4728,11 @@ registry-url@^5.1.0:
   integrity sha512-8acYXXTI0AkQv6RAOjE3vOaIXZkT9wo4LOFbBKYQEEnnMNBpKqdUrI6S4NT0KPIo/WVvJ5tE/X5LF/TQUf0ekw==
   dependencies:
     rc "^1.2.8"
+
+remove-markdown@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.intuit.com:443/artifactory/api/npm/npm-intuit/remove-markdown/-/remove-markdown-0.3.0.tgz#5e4b667493a93579728f3d52ecc1db9ca505dc98"
+  integrity sha1-XktmdJOpNXlyjz1S7MHbnKUF3Jg=
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"

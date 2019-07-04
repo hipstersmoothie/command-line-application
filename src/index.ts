@@ -1,5 +1,6 @@
 import commandLineArgs from 'command-line-args';
 import commandLineUsage from 'command-line-usage';
+import removeMarkdown from 'remove-markdown';
 
 export type Option = commandLineUsage.OptionDefinition;
 
@@ -66,13 +67,27 @@ function styleTypes(command: Command, option: Option) {
 }
 
 function addFooter(command: Command, sections: commandLineUsage.Section[]) {
-  if (Array.isArray(command.footer)) {
-    command.footer.forEach(f => sections.push(f));
+  if (typeof command.footer === 'string') {
+    sections.push({ content: command.footer });
   } else if (command.footer) {
-    sections.push(
-      typeof command.footer === 'string'
-        ? { content: command.footer }
-        : command.footer
+    const footers = Array.isArray(command.footer)
+      ? command.footer
+      : [command.footer];
+
+    footers.forEach(f =>
+      sections.push({
+        ...f,
+        header: f.header
+          ? removeMarkdown(f.header, { stripListLeaders: false })
+          : undefined,
+        content: !('content' in f)
+          ? undefined
+          : typeof f.content === 'string'
+          ? removeMarkdown(f.content, { stripListLeaders: false })
+          : Array.isArray(f.content)
+          ? f.content
+          : undefined,
+      })
     );
   }
 }

@@ -3,7 +3,6 @@
   "version": "0.1.7",
   "description": "A helpful wrapper around command-line-args and command-line-usage",
   "main": "dist/index.js",
-  "umd:main": "dist/command-line-application.umd.production.js",
   "module": "dist/command-line-application.es.production.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -31,6 +30,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
+    "@types/remove-markdown": "^0.1.1",
     "auto": "^7.0.7",
     "husky": "^2.3.0",
     "jest-snapshot-serializer-ansi": "^1.0.0",
@@ -45,7 +45,7 @@
     "@types/command-line-usage": "^5.0.1",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
-    "io-ts": "^1.8.6"
+    "remove-markdown": "^0.3.0"
   },
   "jest": {
     "snapshotSerializers": [
