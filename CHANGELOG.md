@@ -1,3 +1,15 @@
+# v0.1.7 (Thu Jul 04 2019)
+
+#### ⚠️  Pushed to master
+
+- add footer sections  ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.1.6 (Thu Jul 04 2019)
 
 #### ⚠️  Pushed to master
