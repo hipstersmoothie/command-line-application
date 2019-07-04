@@ -44,19 +44,22 @@ function styleTypes(command: Command, option: Option) {
   const isRequired = command.require && command.require.includes(option.name);
 
   if (isRequired && option.type === Number) {
-    option.typeLabel =
-      '{rgb(173, 216, 230) {underline number}} [{rgb(254,91,92) required}]';
+    option.typeLabel = `{rgb(173, 216, 230) {underline ${option.typeLabel ||
+      'number'}}} [{rgb(254,91,92) required}]`;
   } else if (option.type === Number) {
-    option.typeLabel = '{rgb(173, 216, 230) {underline number}}';
+    option.typeLabel = `{rgb(173, 216, 230) {underline ${option.typeLabel ||
+      'number'}}}`;
   }
 
   if (isRequired && option.type === String) {
-    option.typeLabel =
-      '{rgb(173, 216, 230) {underline string}} [{rgb(254,91,92) required}]';
+    option.typeLabel = `{rgb(173, 216, 230) {underline ${option.typeLabel ||
+      'string'}}} [{rgb(254,91,92) required}]`;
   } else if (option.multiple && option.type === String) {
-    option.typeLabel = '{rgb(173, 216, 230) {underline string[]}}';
+    option.typeLabel = `{rgb(173, 216, 230) {underline ${option.typeLabel ||
+      'string[]'}}}`;
   } else if (option.type === String) {
-    option.typeLabel = '{rgb(173, 216, 230) {underline string}}';
+    option.typeLabel = `{rgb(173, 216, 230) {underline ${option.typeLabel ||
+      'string'}}}`;
   }
 }
 
