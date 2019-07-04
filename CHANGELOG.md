@@ -1,3 +1,15 @@
+# v0.1.6 (Thu Jul 04 2019)
+
+#### ⚠️  Pushed to master
+
+- respect type label if it exists  ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.1.5 (Mon Jul 01 2019)
 
 #### 🐛  Bug Fix
