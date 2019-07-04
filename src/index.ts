@@ -16,6 +16,7 @@ export type Command = {
   examples?: (string | Example)[];
   /** What group to render the command in a MultiCommand */
   group?: string;
+  footer?: commandLineUsage.Section[] | commandLineUsage.Section | string;
 };
 
 export interface MultiCommand {
@@ -24,6 +25,7 @@ export interface MultiCommand {
   description: string;
   options?: Option[];
   commands: (Command | MultiCommand)[];
+  footer?: commandLineUsage.Section | string;
 }
 
 const help: Option = {
@@ -60,6 +62,18 @@ function styleTypes(command: Command, option: Option) {
   } else if (option.type === String) {
     option.typeLabel = `{rgb(173, 216, 230) {underline ${option.typeLabel ||
       'string'}}}`;
+  }
+}
+
+function addFooter(command: Command, sections: commandLineUsage.Section[]) {
+  if (Array.isArray(command.footer)) {
+    command.footer.forEach(f => sections.push(f));
+  } else if (command.footer) {
+    sections.push(
+      typeof command.footer === 'string'
+        ? { content: command.footer }
+        : command.footer
+    );
   }
 }
 
@@ -102,6 +116,8 @@ const printUsage = (command: Command) => {
       content: command.examples,
     });
   }
+
+  addFooter(command, sections);
 
   console.log(commandLineUsage(sections));
   return;
@@ -172,6 +188,8 @@ const printRootUsage = (multi: MultiCommand) => {
     optionList: options,
     group: ['_none', 'global'],
   });
+
+  addFooter(multi, sections);
 
   console.log(commandLineUsage(sections));
 };
