@@ -105,3 +105,28 @@ const echo: Command = {
   ],
 };
 ```
+
+### Code in footers
+
+To display code in a footer set `code` to true.
+
+```ts
+const echo: Command = {
+  name: 'echo',
+  description: 'Print a string to the terminal',
+  examples: ['echo foo', 'echo "Intense message"'],
+  options: [
+    {
+      name: 'value',
+      type: String,
+      defaultOption: true,
+      description: 'The value to print',
+    },
+  ],
+  footer: {
+    header: 'Additional Info',
+    code: true,
+    content: 'function foo (){\n  return 1;\n}',
+  },
+};
+```

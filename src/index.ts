@@ -9,6 +9,10 @@ export type Example = {
   example: string;
 };
 
+export type Section = commandLineUsage.Section & {
+  code?: boolean;
+};
+
 export type Command = {
   name: string;
   description: string;
@@ -17,7 +21,7 @@ export type Command = {
   examples?: (string | Example)[];
   /** What group to render the command in a MultiCommand */
   group?: string;
-  footer?: commandLineUsage.Section[] | commandLineUsage.Section | string;
+  footer?: Section[] | Section | string;
 };
 
 export interface MultiCommand {
@@ -26,7 +30,7 @@ export interface MultiCommand {
   description: string;
   options?: Option[];
   commands: (Command | MultiCommand)[];
-  footer?: commandLineUsage.Section | string;
+  footer?: Section | string;
 }
 
 const help: Option = {
@@ -66,7 +70,7 @@ function styleTypes(command: Command, option: Option) {
   }
 }
 
-function addFooter(command: Command, sections: commandLineUsage.Section[]) {
+function addFooter(command: Command, sections: Section[]) {
   if (typeof command.footer === 'string') {
     sections.push({ content: command.footer });
   } else if (command.footer) {
@@ -74,7 +78,21 @@ function addFooter(command: Command, sections: commandLineUsage.Section[]) {
       ? command.footer
       : [command.footer];
 
-    footers.forEach(f =>
+    footers.forEach(f => {
+      // @ts-ignore
+      if (typeof f.content === 'string') {
+        console.log(
+          'line',
+          // @ts-ignore
+          f.content
+            .replace(/}/g, '\\}')
+            .replace(/{/g, '\\{')
+            .split('\n')
+            // @ts-ignore
+            .map(s => `  ${s}  `)
+        );
+      }
+
       sections.push({
         ...f,
         header: f.header
@@ -83,18 +101,30 @@ function addFooter(command: Command, sections: commandLineUsage.Section[]) {
         content: !('content' in f)
           ? undefined
           : typeof f.content === 'string'
-          ? removeMarkdown(f.content, { stripListLeaders: false })
+          ? removeMarkdown(
+              f.code
+                ? f.content
+                    .replace(/}/g, '\\}')
+                    .replace(/{/g, '\\{')
+                    .split('\n')
+                    .map(s => (s.includes('```') ? s : `  ${s}  `))
+                    .join('\n')
+                : f.content,
+              {
+                stripListLeaders: false,
+              }
+            )
           : Array.isArray(f.content)
           ? f.content
           : undefined,
-      })
-    );
+      });
+    });
   }
 }
 
 const printUsage = (command: Command) => {
   const options = command.options || [];
-  const sections: commandLineUsage.Section[] = [
+  const sections: Section[] = [
     {
       header: command.name,
       content: command.description,
@@ -143,7 +173,7 @@ const printRootUsage = (multi: MultiCommand) => {
     multi.commands.filter((c): c is Command => !('isMulti' in c)) || [];
   const rootOptions = multi.options || [];
   const options = [...rootOptions, ...globalOptions];
-  const sections: commandLineUsage.Section[] = [];
+  const sections: Section[] = [];
 
   if (multi.logo) {
     sections.push({
@@ -271,8 +301,8 @@ export function app(
 
   if (_unknown && _unknown.length > 0) {
     const rootOptions = command.options ? command.options || [] : [];
-    const subCommand = command.commands.find(
-      (c): c is Command => Boolean(c.name === _unknown[0])
+    const subCommand = command.commands.find((c): c is Command =>
+      Boolean(c.name === _unknown[0])
     );
 
     if (subCommand) {
