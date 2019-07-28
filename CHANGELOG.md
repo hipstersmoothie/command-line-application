@@ -1,3 +1,15 @@
+# v0.4.0 (Sun Jul 28 2019)
+
+#### 🚀  Enhancement
+
+- add unknown command/flag suggestions [#4](https://github.com/hipstersmoothie/command-line-application/pull/4) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.3.0 (Sun Jul 28 2019)
 
 #### 🚀  Enhancement
