@@ -364,9 +364,8 @@ export function app(
   command: Command | MultiCommand,
   { showHelp = true, argv, error = 'exit' }: Options = {}
 ):
-  | ({ _command: string | string[] } & Record<string, any>)
-  | Record<string, any>
-  | { error: string }
+  | (({ _command: string | string[] } | { error: string } | {}) &
+      Record<string, any>)
   | undefined {
   const appOptions = { showHelp, argv, error };
 
