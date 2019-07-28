@@ -41,6 +41,7 @@
     "@types/command-line-usage": "^5.0.1",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
+    "meant": "^1.0.1",
     "remove-markdown": "^0.3.0"
   },
   "jest": {

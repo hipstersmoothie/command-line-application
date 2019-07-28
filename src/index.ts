@@ -1,6 +1,7 @@
 import commandLineArgs from 'command-line-args';
 import commandLineUsage from 'command-line-usage';
 import removeMarkdown from 'remove-markdown';
+import meant from 'meant';
 
 export type Option = commandLineUsage.OptionDefinition;
 
@@ -239,6 +240,45 @@ const printRootUsage = (multi: MultiCommand) => {
   console.log(commandLineUsage(sections));
 };
 
+const reportUnknownFlags = (args: (Option | Command)[], unknown: string[]) => {
+  const argNames = args.map(a => a.name);
+  const withoutSuggestions: string[] = [];
+
+  unknown.forEach((u: string) => {
+    const suggestions = meant(u, argNames);
+    const type = u.startsWith('-') ? 'flag' : 'command';
+
+    if (suggestions.length) {
+      console.log(
+        `Found unknown ${type} "${u}", did you mean ${suggestions
+          .map(s => `"${s}"`)
+          .join(', ')}?`
+      );
+    } else {
+      withoutSuggestions.push(u);
+    }
+  });
+
+  if (withoutSuggestions.length > 1) {
+    console.log(`Found unknown: ${withoutSuggestions.join(', ')}`);
+  } else if (withoutSuggestions.length > 0) {
+    const type = withoutSuggestions[0].startsWith('-') ? 'flag' : 'command';
+    console.log(`Found unknown ${type}: ${withoutSuggestions.join(', ')}`);
+  }
+};
+
+const initializeOptions = (options: Option[] = []) => {
+  const args = [...options];
+
+  globalOptions.forEach(o => {
+    if (!args.find(a => a.name === o.name)) {
+      args.push(o);
+    }
+  });
+
+  return args;
+};
+
 interface Options {
   argv?: string[];
   showHelp?: boolean;
@@ -248,7 +288,7 @@ const parseCommand = (
   command: Command,
   { argv, showHelp }: Options
 ): Record<string, any> | undefined => {
-  const args = [...(command.options || []), help];
+  const args = initializeOptions(command.options);
   const { global, ...rest } = commandLineArgs(args, {
     stopAtFirstUnknown: true,
     camelCase: true,
@@ -257,11 +297,8 @@ const parseCommand = (
 
   if (rest._unknown) {
     printUsage(command);
-    console.log(
-      `Found unknown flag${
-        rest._unknown.length > 1 ? 's' : ''
-      }: ${rest._unknown.join(', ')}`
-    );
+    reportUnknownFlags(args, rest._unknown);
+
     return;
   }
 
@@ -305,6 +342,7 @@ export function app(
     return parseCommand(command, appOptions);
   }
 
+  const rootOptions = initializeOptions(command.options);
   const { global, _unknown } = commandLineArgs(globalOptions, {
     stopAtFirstUnknown: true,
     camelCase: true,
@@ -317,13 +355,15 @@ export function app(
   }
 
   if (_unknown && _unknown.length > 0) {
-    const rootOptions = command.options ? command.options || [] : [];
     const subCommand = command.commands.find((c): c is Command =>
       Boolean(c.name === _unknown[0])
     );
 
     if (subCommand) {
-      const options = [...(subCommand.options || []), ...rootOptions];
+      const options = [
+        ...(subCommand.options || []),
+        ...(command.options || [])
+      ];
       const parsed = app(
         { ...subCommand, options },
         { ...appOptions, argv: _unknown.slice(1) }
@@ -343,11 +383,7 @@ export function app(
     }
 
     printRootUsage(command);
-    console.log(
-      `Found unknown flag${_unknown.length > 1 ? 's' : ''}: ${_unknown.join(
-        ', '
-      )}`
-    );
+    reportUnknownFlags([...rootOptions, ...command.commands], _unknown);
 
     return;
   } else {

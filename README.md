@@ -4,6 +4,14 @@
 
 A helpful wrapper around command-line-args and command-line-usage
 
+- Easily define single or multi-command CLI application
+- Adds required options
+- Suggests possible fixes for typos in flags or sub-commands
+- Built in `--help` flag
+- Add documentation footers to commands
+- Automatically add color to command types
+- Type checked!
+
 ## Installation
 
 ```sh
@@ -23,14 +31,15 @@ const echo: Command = {
   name: 'echo',
   description: 'Print a string to the terminal',
   examples: ['echo foo', 'echo "Intense message"'],
+  required: ['value'],
   options: [
     {
       name: 'value',
       type: String,
       defaultOption: true,
-      description: 'The value to print',
-    },
-  ],
+      description: 'The value to print'
+    }
+  ]
 };
 
 const args = app(echo);
@@ -87,22 +96,22 @@ const echo: Command = {
       name: 'value',
       type: String,
       defaultOption: true,
-      description: 'The value to print',
-    },
+      description: 'The value to print'
+    }
   ],
   footer: 'Only run this if you really need to',
   // or
   footer: {
     header: 'Additional Info',
-    content: 'Only run this if you really need to',
+    content: 'Only run this if you really need to'
   },
   // or
   footer: [
     {
       header: 'Additional Info',
-      content: 'Only run this if you really need to',
-    },
-  ],
+      content: 'Only run this if you really need to'
+    }
+  ]
 };
 ```
 
@@ -120,13 +129,31 @@ const echo: Command = {
       name: 'value',
       type: String,
       defaultOption: true,
-      description: 'The value to print',
-    },
+      description: 'The value to print'
+    }
   ],
   footer: {
     header: 'Additional Info',
     code: true,
-    content: 'function foo (){\n  return 1;\n}',
-  },
+    content: 'function foo (){\n  return 1;\n}'
+  }
 };
+```
+
+## Options
+
+### argv
+
+Provide `argv` manually.
+
+```ts
+const args = app(echo, { argv: ['--help'] });
+```
+
+### showHelp
+
+Whether to show the help dialog. Defaults to `true`
+
+```ts
+const args = app(echo, { showHelp: false });
 ```

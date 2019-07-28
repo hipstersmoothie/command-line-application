@@ -80,6 +80,36 @@ Global Options
 ]
 `;
 
+exports[`multi command app suggests misspelled command 1`] = `
+Array [
+  "
+scripts
+
+  My scripts package 
+
+Synopsis
+
+  $ scripts <command> <options> 
+
+Commands
+
+  lint   lint the project 
+  test   test the project 
+
+Global Options
+
+  -v, --verbose    Log a bunch of stuff    
+  -h, --help       Display the help output 
+",
+]
+`;
+
+exports[`multi command app suggests misspelled command 2`] = `
+Array [
+  "Found unknown command \\"flint\\", did you mean \\"lint\\"?",
+]
+`;
+
 exports[`multi command app w/multi commands sub-multi-command help 1`] = `
 Array [
   "
@@ -169,5 +199,31 @@ Examples
   echo foo               
   echo \\"Intense message\\" 
 ",
+]
+`;
+
+exports[`single command app suggests typo correction 1`] = `
+Array [
+  "
+echo
+
+  Print a string to the terminal 
+
+Options
+
+  --value string   The value to print      
+  -h, --help       Display the help output 
+
+Examples
+
+  echo foo               
+  echo \\"Intense message\\" 
+",
+]
+`;
+
+exports[`single command app suggests typo correction 2`] = `
+Array [
+  "Found unknown flag \\"--vakue\\", did you mean \\"value\\"?",
 ]
 `;
