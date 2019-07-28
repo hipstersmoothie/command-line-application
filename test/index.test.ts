@@ -15,9 +15,9 @@ describe('single command app', () => {
         name: 'value',
         type: String,
         defaultOption: true,
-        description: 'The value to print',
-      },
-    ],
+        description: 'The value to print'
+      }
+    ]
   };
 
   test('usage', () => {
@@ -43,6 +43,16 @@ describe('single command app', () => {
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
   });
+
+  test('suggests typo correction', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    app(echo, { argv: ['--vakue', 'foo'] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+  });
 });
 
 describe('multi command app', () => {
@@ -54,9 +64,9 @@ describe('multi command app', () => {
       {
         name: 'interactive',
         type: Boolean,
-        description: 'Run the application in interactive mode',
-      },
-    ],
+        description: 'Run the application in interactive mode'
+      }
+    ]
   };
   const lintCommand: Command = {
     name: 'lint',
@@ -66,9 +76,9 @@ describe('multi command app', () => {
       {
         name: 'fix',
         type: Boolean,
-        description: 'Run the application in fix mode',
-      },
-    ],
+        description: 'Run the application in fix mode'
+      }
+    ]
   };
   const scripts: MultiCommand = {
     name: 'scripts',
@@ -79,9 +89,9 @@ describe('multi command app', () => {
         name: 'verbose',
         alias: 'v',
         description: 'Log a bunch of stuff',
-        type: Boolean,
-      },
-    ],
+        type: Boolean
+      }
+    ]
   };
 
   test('help', () => {
@@ -134,6 +144,16 @@ describe('multi command app', () => {
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
   });
+
+  test('suggests misspelled command', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    app(scripts, { argv: ['flint'] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+  });
 });
 
 describe('multi command app w/multi commands', () => {
@@ -145,9 +165,9 @@ describe('multi command app w/multi commands', () => {
       {
         name: 'interactive',
         type: Boolean,
-        description: 'Run the application in interactive mode',
-      },
-    ],
+        description: 'Run the application in interactive mode'
+      }
+    ]
   };
   const createCommand: MultiCommand = {
     name: 'create',
@@ -157,14 +177,14 @@ describe('multi command app w/multi commands', () => {
       {
         name: 'name',
         type: String,
-        description: 'The name of the thing to create',
-      },
+        description: 'The name of the thing to create'
+      }
     ],
     commands: [
       {
         name: 'component',
         description: 'create a component',
-        examples: ['create component'],
+        examples: ['create component']
       },
       {
         name: 'project',
@@ -174,11 +194,11 @@ describe('multi command app w/multi commands', () => {
           {
             name: 'cwd',
             type: Boolean,
-            description: 'Use the current working directory',
-          },
-        ],
-      },
-    ],
+            description: 'Use the current working directory'
+          }
+        ]
+      }
+    ]
   };
   const scripts: MultiCommand = {
     name: 'scripts',
@@ -189,9 +209,9 @@ describe('multi command app w/multi commands', () => {
         name: 'verbose',
         alias: 'v',
         description: 'Log a bunch of stuff',
-        type: Boolean,
-      },
-    ],
+        type: Boolean
+      }
+    ]
   };
 
   test('sub-multi-command help', () => {
@@ -217,7 +237,7 @@ describe('multi command app w/multi commands', () => {
       expect.objectContaining({
         _command: ['create', 'project'],
         cwd: true,
-        name: 'foo',
+        name: 'foo'
       })
     );
   });
