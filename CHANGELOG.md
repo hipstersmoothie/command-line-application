@@ -1,3 +1,15 @@
+# v0.5.2 (Sun Jul 28 2019)
+
+#### ⚠️  Pushed to master
+
+- add jscode for all exported interfaces and functions  ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.5.1 (Sun Jul 28 2019)
 
 #### 📝  Documentation
