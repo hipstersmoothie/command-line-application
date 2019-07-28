@@ -3,7 +3,6 @@
   "version": "0.2.0",
   "description": "A helpful wrapper around command-line-args and command-line-usage",
   "main": "dist/index.js",
-  "module": "dist/command-line-application.es.production.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -11,8 +10,8 @@
   "repository": "hipstersmoothie/command-line-application",
   "author": "Andrew Lisowski <lisowski54@gmail.com>",
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsc",
+    "start": "yarn build --watch",
     "test": "tsdx test",
     "release": "auto shipit"
   },
@@ -23,10 +22,7 @@
     }
   },
   "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
+    "singleQuote": true
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
@@ -36,7 +32,7 @@
     "jest-snapshot-serializer-ansi": "^1.0.0",
     "prettier": "^1.17.1",
     "pretty-quick": "^1.10.0",
-    "tsdx": "^0.5.11",
+    "tsdx": "^0.7.2",
     "tslib": "^1.9.3",
     "typescript": "^3.5.0-dev.20190518"
   },

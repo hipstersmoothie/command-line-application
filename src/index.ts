@@ -38,7 +38,7 @@ const help: Option = {
   alias: 'h',
   description: 'Display the help output',
   type: Boolean,
-  group: 'global',
+  group: 'global'
 };
 
 const globalOptions = [help];
@@ -111,12 +111,12 @@ function addFooter(command: Command, sections: Section[]) {
                     .join('\n')
                 : f.content,
               {
-                stripListLeaders: false,
+                stripListLeaders: false
               }
             )
           : Array.isArray(f.content)
           ? f.content
-          : undefined,
+          : undefined
       });
     });
   }
@@ -127,8 +127,8 @@ const printUsage = (command: Command) => {
   const sections: Section[] = [
     {
       header: command.name,
-      content: command.description,
-    },
+      content: command.description
+    }
   ];
 
   options.forEach(option => {
@@ -139,26 +139,26 @@ const printUsage = (command: Command) => {
     sections.push(
       {
         header: 'Options',
-        optionList: options,
+        optionList: options
       },
       {
         header: 'Global Options',
         optionList: [...options, ...globalOptions],
-        group: 'global',
+        group: 'global'
       }
     );
   } else {
     sections.push({
       header: 'Options',
       optionList: [...options, ...globalOptions],
-      group: ['_none', 'global'],
+      group: ['_none', 'global']
     });
   }
 
   if (command.examples) {
     sections.push({
       header: 'Examples',
-      content: command.examples,
+      content: command.examples
     });
   }
 
@@ -178,18 +178,18 @@ const printRootUsage = (multi: MultiCommand) => {
   if (multi.logo) {
     sections.push({
       content: multi.logo,
-      raw: true,
+      raw: true
     });
   }
 
   sections.push({
     header: multi.name,
-    content: multi.description,
+    content: multi.description
   });
 
   sections.push({
     header: 'Synopsis',
-    content: `$ ${multi.name} <command> <options>`,
+    content: `$ ${multi.name} <command> <options>`
   });
 
   const groups = subCommands.reduce((all, command) => {
@@ -208,8 +208,8 @@ const printRootUsage = (multi: MultiCommand) => {
         header,
         content: grouped.map(command => ({
           name: command.name,
-          description: command.description,
-        })),
+          description: command.description
+        }))
       });
     }
   });
@@ -219,8 +219,8 @@ const printRootUsage = (multi: MultiCommand) => {
       header: 'Commands',
       content: subCommands.map(command => ({
         name: command.name,
-        description: command.description,
-      })),
+        description: command.description
+      }))
     });
   }
 
@@ -231,7 +231,7 @@ const printRootUsage = (multi: MultiCommand) => {
   sections.push({
     header: 'Global Options',
     optionList: options,
-    group: ['_none', 'global'],
+    group: ['_none', 'global']
   });
 
   addFooter(multi, sections);
@@ -239,15 +239,20 @@ const printRootUsage = (multi: MultiCommand) => {
   console.log(commandLineUsage(sections));
 };
 
+interface Options {
+  argv?: string[];
+  showHelp?: boolean;
+}
+
 const parseCommand = (
   command: Command,
-  argv: string[] = []
+  { argv, showHelp }: Options
 ): Record<string, any> | undefined => {
   const args = [...(command.options || []), help];
   const { global, ...rest } = commandLineArgs(args, {
     stopAtFirstUnknown: true,
     camelCase: true,
-    argv,
+    argv
   });
 
   if (rest._unknown) {
@@ -260,7 +265,7 @@ const parseCommand = (
     return;
   }
 
-  if (global.help) {
+  if (global.help && showHelp) {
     printUsage(command);
     return;
   }
@@ -289,22 +294,24 @@ const parseCommand = (
 
 export function app(
   command: Command | MultiCommand,
-  { argv }: { argv?: string[] } = {}
+  { showHelp = true, argv }: Options = {}
 ):
   | ({ _command: string | string[] } & Record<string, any>)
   | Record<string, any>
   | undefined {
+  const appOptions = { showHelp, argv };
+
   if (!('commands' in command)) {
-    return parseCommand(command, argv);
+    return parseCommand(command, appOptions);
   }
 
   const { global, _unknown } = commandLineArgs(globalOptions, {
     stopAtFirstUnknown: true,
     camelCase: true,
-    argv,
+    argv
   });
 
-  if (global.help) {
+  if (global.help && showHelp) {
     printRootUsage(command);
     return;
   }
@@ -319,7 +326,7 @@ export function app(
       const options = [...(subCommand.options || []), ...rootOptions];
       const parsed = app(
         { ...subCommand, options },
-        { argv: _unknown.slice(1) }
+        { ...appOptions, argv: _unknown.slice(1) }
       );
 
       if (!parsed) {
@@ -331,7 +338,7 @@ export function app(
         _command:
           '_command' in parsed
             ? [subCommand.name, ...arrayify(parsed._command)]
-            : subCommand.name,
+            : subCommand.name
       };
     }
 
@@ -344,8 +351,10 @@ export function app(
 
     return;
   } else {
-    printRootUsage(command);
-    console.log(`No sub-command provided to MultiCommand "${command.name}"`);
+    if (showHelp) {
+      printRootUsage(command);
+      console.log(`No sub-command provided to MultiCommand "${command.name}"`);
+    }
     process.exit(1);
   }
 
