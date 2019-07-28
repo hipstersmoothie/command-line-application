@@ -157,3 +157,11 @@ Whether to show the help dialog. Defaults to `true`
 ```ts
 const args = app(echo, { showHelp: false });
 ```
+
+### error
+
+Configure how `command-line-application` reports errors.
+
+- exit - (default) print error message and exit process
+- throw - throw error message
+- object - return the error message on an object with key `error`

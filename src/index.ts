@@ -240,16 +240,43 @@ const printRootUsage = (multi: MultiCommand) => {
   console.log(commandLineUsage(sections));
 };
 
-const reportUnknownFlags = (args: (Option | Command)[], unknown: string[]) => {
+const errorReportingStyles = ['exit', 'throw', 'object'] as const;
+type ErrorReportingStyle = typeof errorReportingStyles[number];
+
+const reportError = (error: string, style: ErrorReportingStyle) => {
+  if (style === 'exit') {
+    console.log(error);
+    process.exit(1);
+  }
+
+  if (style === 'throw') {
+    throw new Error(error);
+  }
+
+  if (style === 'object') {
+    return { error };
+  }
+
+  return;
+};
+
+const reportUnknownFlags = (
+  args: (Option | Command)[],
+  unknown: string[],
+  error: ErrorReportingStyle
+) => {
   const argNames = args.map(a => a.name);
   const withoutSuggestions: string[] = [];
+  const errors: string[] = [];
+  let hasSuggestions = false;
 
   unknown.forEach((u: string) => {
     const suggestions = meant(u, argNames);
     const type = u.startsWith('-') ? 'flag' : 'command';
 
     if (suggestions.length) {
-      console.log(
+      hasSuggestions = true;
+      errors.push(
         `Found unknown ${type} "${u}", did you mean ${suggestions
           .map(s => `"${s}"`)
           .join(', ')}?`
@@ -259,12 +286,16 @@ const reportUnknownFlags = (args: (Option | Command)[], unknown: string[]) => {
     }
   });
 
-  if (withoutSuggestions.length > 1) {
-    console.log(`Found unknown: ${withoutSuggestions.join(', ')}`);
-  } else if (withoutSuggestions.length > 0) {
-    const type = withoutSuggestions[0].startsWith('-') ? 'flag' : 'command';
-    console.log(`Found unknown ${type}: ${withoutSuggestions.join(', ')}`);
+  if (!hasSuggestions) {
+    if (withoutSuggestions.length > 1) {
+      errors.push(`Found unknown: ${withoutSuggestions.join(', ')}`);
+    } else if (withoutSuggestions.length > 0) {
+      const type = withoutSuggestions[0].startsWith('-') ? 'flag' : 'command';
+      errors.push(`Found unknown ${type}: ${withoutSuggestions.join(', ')}`);
+    }
   }
+
+  return reportError(errors.join('\n'), error);
 };
 
 const initializeOptions = (options: Option[] = []) => {
@@ -282,11 +313,12 @@ const initializeOptions = (options: Option[] = []) => {
 interface Options {
   argv?: string[];
   showHelp?: boolean;
+  error?: ErrorReportingStyle;
 }
 
 const parseCommand = (
   command: Command,
-  { argv, showHelp }: Options
+  { argv, showHelp, error = 'exit' }: Options
 ): Record<string, any> | undefined => {
   const args = initializeOptions(command.options);
   const { global, ...rest } = commandLineArgs(args, {
@@ -297,9 +329,7 @@ const parseCommand = (
 
   if (rest._unknown) {
     printUsage(command);
-    reportUnknownFlags(args, rest._unknown);
-
-    return;
+    return reportUnknownFlags(args, rest._unknown, error);
   }
 
   if (global.help && showHelp) {
@@ -319,10 +349,11 @@ const parseCommand = (
     if (missing.length > 0) {
       const multiple = missing.length > 1;
       printUsage(command);
-      console.log(
-        `Missing required arg${multiple ? 's' : ''}: ${missing.join(', ')}`
+
+      return reportError(
+        `Missing required arg${multiple ? 's' : ''}: ${missing.join(', ')}`,
+        error
       );
-      process.exit(1);
     }
   }
 
@@ -331,12 +362,13 @@ const parseCommand = (
 
 export function app(
   command: Command | MultiCommand,
-  { showHelp = true, argv }: Options = {}
+  { showHelp = true, argv, error = 'exit' }: Options = {}
 ):
   | ({ _command: string | string[] } & Record<string, any>)
   | Record<string, any>
+  | { error: string }
   | undefined {
-  const appOptions = { showHelp, argv };
+  const appOptions = { showHelp, argv, error };
 
   if (!('commands' in command)) {
     return parseCommand(command, appOptions);
@@ -383,16 +415,19 @@ export function app(
     }
 
     printRootUsage(command);
-    reportUnknownFlags([...rootOptions, ...command.commands], _unknown);
-
-    return;
-  } else {
-    if (showHelp) {
-      printRootUsage(command);
-      console.log(`No sub-command provided to MultiCommand "${command.name}"`);
-    }
-    process.exit(1);
+    return reportUnknownFlags(
+      [...rootOptions, ...command.commands],
+      _unknown,
+      error
+    );
   }
 
-  return global;
+  if (showHelp) {
+    printRootUsage(command);
+  }
+
+  return reportError(
+    `No sub-command provided to MultiCommand "${command.name}"`,
+    error
+  );
 }
