@@ -1,3 +1,15 @@
+# v0.5.0 (Sun Jul 28 2019)
+
+#### 🚀  Enhancement
+
+- add configurable error reporting style [#5](https://github.com/hipstersmoothie/command-line-application/pull/5) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.4.0 (Sun Jul 28 2019)
 
 #### 🚀  Enhancement
