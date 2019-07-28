@@ -12,6 +12,10 @@ A helpful wrapper around [command-line-args](https://www.npmjs.com/package/comma
 - Automatically add color to command types
 - Type checked!
 
+## Related Libraries
+
+- [command-line-docs](https://github.com/hipstersmoothie/command-line-docs) - Generate documentation for your `command-line-application` commands
+
 ## Installation
 
 ```sh
