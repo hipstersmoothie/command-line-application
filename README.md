@@ -2,7 +2,7 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/hipstersmoothie/command-line-application/master.svg?style=for-the-badge)](https://circleci.com/gh/hipstersmoothie/command-line-application) [![npm](https://img.shields.io/npm/v/command-line-application.svg?style=for-the-badge)](https://www.npmjs.com/package/command-line-application) [![npm](https://img.shields.io/npm/dt/command-line-application.svg?style=for-the-badge)](https://www.npmjs.com/package/command-line-application)
 
-A helpful wrapper around command-line-args and command-line-usage
+A helpful wrapper around [command-line-args](https://www.npmjs.com/package/command-line-args) and [command-line-usage](https://www.npmjs.com/package/command-line-usage).
 
 - Easily define single or multi-command CLI application
 - Adds required options
@@ -157,3 +157,11 @@ Whether to show the help dialog. Defaults to `true`
 ```ts
 const args = app(echo, { showHelp: false });
 ```
+
+### error
+
+Configure how `command-line-application` reports errors.
+
+- exit - (default) print error message and exit process
+- throw - throw error message
+- object - return the error message on an object with key `error`

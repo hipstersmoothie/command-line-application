@@ -36,22 +36,52 @@ describe('single command app', () => {
 
   test('errors on unknown flag', () => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
+
     app(echo, { argv: ['--error'] });
 
     // @ts-ignore
     expect(console.log.mock.calls[0]).toMatchSnapshot();
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
   });
 
   test('suggests typo correction', () => {
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
     jest.spyOn(console, 'log').mockImplementation(() => {});
+
     app(echo, { argv: ['--vakue', 'foo'] });
 
     // @ts-ignore
     expect(console.log.mock.calls[0]).toMatchSnapshot();
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
+
+  test('can configure error type to throw', () => {
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    expect(() =>
+      app(echo, { argv: ['--vakue', 'foo'], error: 'throw' })
+    ).toThrow('Found unknown flag "--vakue", did you mean "value"?');
+  });
+
+  test('can configure error type to return object', () => {
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    expect(app(echo, { argv: ['--vakue', 'foo'], error: 'object' })).toEqual({
+      error: 'Found unknown flag "--vakue", did you mean "value"?'
+    });
   });
 });
 
@@ -126,33 +156,56 @@ describe('multi command app', () => {
   });
 
   test('errors on unknown flag', () => {
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
     jest.spyOn(console, 'log').mockImplementation(() => {});
+
     app(scripts, { argv: ['--error'] });
 
     // @ts-ignore
     expect(console.log.mock.calls[0]).toMatchSnapshot();
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
   });
 
   test('errors on unknown flag for sub command', () => {
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
     jest.spyOn(console, 'log').mockImplementation(() => {});
+
     app(scripts, { argv: ['lint', '--error'] });
 
     // @ts-ignore
     expect(console.log.mock.calls[0]).toMatchSnapshot();
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
   });
 
   test('suggests misspelled command', () => {
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
     jest.spyOn(console, 'log').mockImplementation(() => {});
+
     app(scripts, { argv: ['flint'] });
 
     // @ts-ignore
     expect(console.log.mock.calls[0]).toMatchSnapshot();
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
+
+  test('can configure error type', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    expect(app(scripts, { argv: ['flint'], error: 'object' })).toEqual({
+      error: 'Found unknown command "flint", did you mean "lint"?'
+    });
   });
 });
 
