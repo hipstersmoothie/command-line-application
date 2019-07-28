@@ -1,3 +1,19 @@
+# v0.5.1 (Sun Jul 28 2019)
+
+#### 📝  Documentation
+
+- Update README.md [#6](https://github.com/hipstersmoothie/command-line-application/pull/6) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### ⚠️  Pushed to master
+
+- loosen types a little  ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.5.0 (Sun Jul 28 2019)
 
 #### 🚀  Enhancement
