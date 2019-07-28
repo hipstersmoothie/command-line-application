@@ -255,6 +255,16 @@ const parseCommand = (
     argv
   });
 
+  if (rest._unknown) {
+    printUsage(command);
+    console.log(
+      `Found unknown flag${
+        rest._unknown.length > 1 ? 's' : ''
+      }: ${rest._unknown.join(', ')}`
+    );
+    return;
+  }
+
   if (global.help && showHelp) {
     printUsage(command);
     return;
@@ -332,9 +342,14 @@ export function app(
       };
     }
 
-    return {
-      _command: _unknown[0]
-    };
+    printRootUsage(command);
+    console.log(
+      `Found unknown flag${_unknown.length > 1 ? 's' : ''}: ${_unknown.join(
+        ', '
+      )}`
+    );
+
+    return;
   } else {
     if (showHelp) {
       printRootUsage(command);

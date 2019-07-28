@@ -1,3 +1,27 @@
+# v0.2.0 (Sun Jul 28 2019)
+
+#### 🚀  Enhancement
+
+- print help + message on unknown flag [#3](https://github.com/hipstersmoothie/command-line-application/pull/3) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
+# v0.1.9 (Fri Jul 12 2019)
+
+#### ⚠️  Pushed to master
+
+- handle code sections  ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.1.8 (Thu Jul 04 2019)
 
 #### ⚠️  Pushed to master
