@@ -284,13 +284,13 @@ const parseCommand = (
 
 export function app(
   command: Command | MultiCommand,
-  appOptions: Options = {
-    showHelp: true
-  }
+  { showHelp = true, argv }: Options = {}
 ):
   | ({ _command: string | string[] } & Record<string, any>)
   | Record<string, any>
   | undefined {
+  const appOptions = { showHelp, argv };
+
   if (!('commands' in command)) {
     return parseCommand(command, appOptions);
   }
@@ -298,10 +298,10 @@ export function app(
   const { global, _unknown } = commandLineArgs(globalOptions, {
     stopAtFirstUnknown: true,
     camelCase: true,
-    argv: appOptions.argv
+    argv
   });
 
-  if (global.help && appOptions.showHelp) {
+  if (global.help && showHelp) {
     printRootUsage(command);
     return;
   }
@@ -336,7 +336,7 @@ export function app(
       _command: _unknown[0]
     };
   } else {
-    if (appOptions.showHelp) {
+    if (showHelp) {
       printRootUsage(command);
       console.log(`No sub-command provided to MultiCommand "${command.name}"`);
     }
