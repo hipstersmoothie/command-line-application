@@ -33,6 +33,16 @@ describe('single command app', () => {
     // @ts-ignore
     expect(console.log.mock.calls[0]).toMatchSnapshot();
   });
+
+  test('errors on unknown flag', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    app(echo, { argv: ['--error'] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+  });
 });
 
 describe('multi command app', () => {
@@ -103,6 +113,26 @@ describe('multi command app', () => {
     expect(app(scripts, { argv: ['test'] })).toEqual(
       expect.objectContaining({ _command: 'test' })
     );
+  });
+
+  test('errors on unknown flag', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    app(scripts, { argv: ['--error'] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+  });
+
+  test('errors on unknown flag for sub command', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    app(scripts, { argv: ['lint', '--error'] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
   });
 });
 

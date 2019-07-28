@@ -1,5 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`multi command app errors on unknown flag 1`] = `
+Array [
+  "
+scripts
+
+  My scripts package 
+
+Synopsis
+
+  $ scripts <command> <options> 
+
+Commands
+
+  lint   lint the project 
+  test   test the project 
+
+Global Options
+
+  -v, --verbose    Log a bunch of stuff    
+  -h, --help       Display the help output 
+",
+]
+`;
+
+exports[`multi command app errors on unknown flag 2`] = `
+Array [
+  "Found unknown flag: --error",
+]
+`;
+
+exports[`multi command app errors on unknown flag for sub command 1`] = `
+Array [
+  "
+lint
+
+  lint the project 
+
+Options
+
+  --fix            Run the application in fix mode 
+  -v, --verbose    Log a bunch of stuff            
+  -h, --help       Display the help output         
+
+Examples
+
+  lint --fix 
+",
+]
+`;
+
+exports[`multi command app errors on unknown flag for sub command 2`] = `
+Array [
+  "Found unknown flag: --error",
+]
+`;
+
 exports[`multi command app help 1`] = `
 Array [
   "
@@ -67,6 +123,32 @@ Examples
 
   create project 
 ",
+]
+`;
+
+exports[`single command app errors on unknown flag 1`] = `
+Array [
+  "
+echo
+
+  Print a string to the terminal 
+
+Options
+
+  --value string   The value to print      
+  -h, --help       Display the help output 
+
+Examples
+
+  echo foo               
+  echo \\"Intense message\\" 
+",
+]
+`;
+
+exports[`single command app errors on unknown flag 2`] = `
+Array [
+  "Found unknown flag: --error",
 ]
 `;
 
