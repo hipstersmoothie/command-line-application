@@ -295,3 +295,42 @@ describe('multi command app w/multi commands', () => {
     );
   });
 });
+
+describe('multi command app w/global singleton flags', () => {
+  const testCommand: Command = {
+    name: 'test',
+    description: 'test the project',
+    examples: ['test --interactive'],
+    options: [
+      {
+        name: 'interactive',
+        type: Boolean,
+        description: 'Run the application in interactive mode'
+      }
+    ]
+  };
+
+  const scripts: MultiCommand = {
+    name: 'scripts',
+    description: 'My scripts package',
+    commands: [testCommand],
+    options: [
+      {
+        name: 'version',
+        alias: 'v',
+        description: 'Get the version',
+        type: Boolean
+      }
+    ]
+  };
+
+  test('sub-multi-command help', () => {
+    expect(app(scripts, { argv: ['--version'] })).toStrictEqual({
+      version: true
+    });
+  });
+
+  test('sub-multi-command help', () => {
+    expect(app(scripts, { argv: ['test', '--version'] })!.version).toBe(true);
+  });
+});

@@ -402,7 +402,7 @@ export function app(
   }
 
   const rootOptions = initializeOptions(command.options);
-  const { global, _unknown } = commandLineArgs(globalOptions, {
+  const { global, _unknown, _all } = commandLineArgs(rootOptions, {
     stopAtFirstUnknown: true,
     camelCase: true,
     argv
@@ -447,6 +447,10 @@ export function app(
       _unknown,
       error
     );
+  }
+
+  if (Object.keys(_all).length > 0) {
+    return _all;
   }
 
   if (showHelp) {
