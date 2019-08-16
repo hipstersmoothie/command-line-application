@@ -331,6 +331,6 @@ describe('multi command app w/global singleton flags', () => {
   });
 
   test('sub-multi-command help', () => {
-    expect(app(scripts, { argv: ['test', '--version'] }).version).toBe(true);
+    expect(app(scripts, { argv: ['test', '--version'] })!.version).toBe(true);
   });
 });

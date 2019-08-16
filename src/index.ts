@@ -449,12 +449,12 @@ export function app(
     );
   }
 
-  if (showHelp) {
-    printRootUsage(command);
-  }
-
   if (Object.keys(_all).length > 0) {
     return _all;
+  }
+
+  if (showHelp) {
+    printRootUsage(command);
   }
 
   return reportError(
