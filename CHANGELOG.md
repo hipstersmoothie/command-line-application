@@ -1,3 +1,15 @@
+# v0.6.0 (Fri Aug 16 2019)
+
+#### 🚀  Enhancement
+
+- use all option in initial multi command parse + return all flags if no subcommand found but flags parsed [#7](https://github.com/hipstersmoothie/command-line-application/pull/7) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.5.2 (Sun Jul 28 2019)
 
 #### ⚠️  Pushed to master
