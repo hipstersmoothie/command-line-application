@@ -1,3 +1,15 @@
+# v0.6.1 (Sun Aug 25 2019)
+
+#### 🐛  Bug Fix
+
+- display code in CLI friendly way [#8](https://github.com/hipstersmoothie/command-line-application/pull/8) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.6.0 (Fri Aug 16 2019)
 
 #### 🚀  Enhancement
