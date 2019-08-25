@@ -85,6 +85,43 @@ describe('single command app', () => {
   });
 });
 
+test('should display code', () => {
+  const echo: Command = {
+    name: 'echo',
+    description: 'Print a string to the terminal',
+    examples: ['echo foo', 'echo "Intense message"'],
+    footer: [
+      {
+        code: true,
+        content: `
+        \`\`\`json
+        {
+          "create": {
+            "package": {
+              "templates": [
+                {
+                  "name": "custom-js",
+                  "url": "https://github.intuit.com/me/my-template",
+                  "description": "A custom package template",
+                  "sha": "4b9c7b627307380fb31acae059f7c095d0c626b8"
+                }
+              ]
+            }
+          }
+        }      
+       \`\`\``
+      }
+    ]
+  };
+
+  const log = jest.fn();
+  console.log = log;
+
+  app(echo, { argv: ['--help'] });
+
+  expect(log.mock.calls[0][0]).toMatchSnapshot();
+});
+
 describe('multi command app', () => {
   const testCommand: Command = {
     name: 'test',
