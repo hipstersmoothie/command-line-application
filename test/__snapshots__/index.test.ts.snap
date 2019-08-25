@@ -156,6 +156,41 @@ Examples
 ]
 `;
 
+exports[`should display code 1`] = `
+"
+echo
+
+  Print a string to the terminal 
+
+Options
+
+  -h, --help    Display the help output 
+
+Examples
+
+  echo foo               
+  echo \\"Intense message\\" 
+
+  |                                                                             
+                                                                                
+  |         {                                                                   
+  |           \\"create\\": {                                                       
+  |             \\"package\\": {                                                    
+  |               \\"templates\\": [                                                
+  |                 {                                                           
+  |                   \\"name\\": \\"custom-js\\",                                      
+  |                   \\"url\\": \\"https://github.intuit.com/me/my-template\\",        
+  |                   \\"description\\": \\"A custom package template\\",               
+  |                   \\"sha\\": \\"4b9c7b627307380fb31acae059f7c095d0c626b8\\"         
+  |                 }                                                           
+  |               ]                                                             
+  |             }                                                               
+  |           }                                                                 
+  |         }                                                                   
+                                                                                
+"
+`;
+
 exports[`single command app errors on unknown flag 1`] = `
 Array [
   "

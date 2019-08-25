@@ -100,20 +100,6 @@ function addFooter(command: Command, sections: Section[]) {
       : [command.footer];
 
     footers.forEach(f => {
-      // @ts-ignore
-      if (typeof f.content === 'string') {
-        console.log(
-          'line',
-          // @ts-ignore
-          f.content
-            .replace(/}/g, '\\}')
-            .replace(/{/g, '\\{')
-            .split('\n')
-            // @ts-ignore
-            .map(s => `  ${s}  `)
-        );
-      }
-
       sections.push({
         ...f,
         header: f.header
@@ -128,7 +114,7 @@ function addFooter(command: Command, sections: Section[]) {
                     .replace(/}/g, '\\}')
                     .replace(/{/g, '\\{')
                     .split('\n')
-                    .map(s => (s.includes('```') ? s : `  ${s}  `))
+                    .map(s => (s.includes('```') ? undefined : `| ${s}`))
                     .join('\n')
                 : f.content,
               {
