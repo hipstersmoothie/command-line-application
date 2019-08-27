@@ -26,7 +26,7 @@ Global Options
 
 exports[`multi command app errors on unknown flag 2`] = `
 Array [
-  "Found unknown flag: --error",
+  "Found unknown flag: \\"--error\\"",
 ]
 `;
 
@@ -52,7 +52,7 @@ Examples
 
 exports[`multi command app errors on unknown flag for sub command 2`] = `
 Array [
-  "Found unknown flag: --error",
+  "Found unknown flag: \\"--error\\"",
 ]
 `;
 
@@ -76,6 +76,32 @@ Global Options
 
   -v, --verbose    Log a bunch of stuff    
   -h, --help       Display the help output 
+",
+]
+`;
+
+exports[`multi command app sub-command groups sub-multi-command help 1`] = `
+Array [
+  "
+scripts
+
+  My scripts package 
+
+Synopsis
+
+  $ scripts <command> <options> 
+
+developer
+
+  test   test the project 
+
+design
+
+  style-guide   create a styleguide for the project 
+
+Global Options
+
+  -h, --help    Display the help output 
 ",
 ]
 `;
@@ -156,6 +182,30 @@ Examples
 ]
 `;
 
+exports[`renders logos 1`] = `
+Array [
+  "
+FOOBAR
+
+echo
+
+  Print a string to the terminal 
+
+Synopsis
+
+  $ echo <command> <options> 
+
+Commands
+
+  lint   find common errors 
+
+Global Options
+
+  -h, --help    Display the help output 
+",
+]
+`;
+
 exports[`should display code 1`] = `
 "
 echo
@@ -213,7 +263,33 @@ Examples
 
 exports[`single command app errors on unknown flag 2`] = `
 Array [
-  "Found unknown flag: --error",
+  "Found unknown flag: \\"--error\\"",
+]
+`;
+
+exports[`single command app errors without required flag 1`] = `
+Array [
+  "
+echo
+
+  Print a string to the terminal 
+
+Options
+
+  --value string [required]   The value to print      
+  -h, --help                  Display the help output 
+
+Examples
+
+  echo foo               
+  echo \\"Intense message\\" 
+",
+]
+`;
+
+exports[`single command app errors without required flag 2`] = `
+Array [
+  "Missing required arg: value",
 ]
 `;
 
@@ -259,6 +335,6 @@ Examples
 
 exports[`single command app suggests typo correction 2`] = `
 Array [
-  "Found unknown flag \\"--vakue\\", did you mean \\"value\\"?",
+  "Found unknown flag \\"--vakue\\", did you mean \\"--value\\"?",
 ]
 `;

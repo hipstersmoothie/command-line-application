@@ -2,6 +2,7 @@ import commandLineArgs from 'command-line-args';
 import commandLineUsage from 'command-line-usage';
 import removeMarkdown from 'remove-markdown';
 import meant from 'meant';
+import chalk from 'chalk';
 
 /** An options for a CLI command */
 export type Option = commandLineUsage.OptionDefinition;
@@ -266,6 +267,11 @@ const reportError = (error: string, style: ErrorReportingStyle) => {
   return;
 };
 
+const createList = (list: string[], transform: (value: string) => string) => {
+  const [first, ...rest] = list.map(transform);
+  return rest.length > 0 ? `${rest.join(', ')} or ${first}` : first;
+};
+
 const reportUnknownFlags = (
   args: (Option | Command)[],
   unknown: string[],
@@ -277,15 +283,19 @@ const reportUnknownFlags = (
   let hasSuggestions = false;
 
   unknown.forEach((u: string) => {
-    const suggestions = meant(u, argNames);
     const type = u.startsWith('-') ? 'flag' : 'command';
+    const suggestions = meant(
+      u,
+      argNames.map(a => (type === 'flag' ? `--${a}` : a))
+    );
 
     if (suggestions.length) {
       hasSuggestions = true;
+      const unknownFlag = chalk.redBright(`"${u}"`);
+      const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
+
       errors.push(
-        `Found unknown ${type} "${u}", did you mean ${suggestions
-          .map(s => `"${s}"`)
-          .join(', ')}?`
+        `Found unknown ${type} ${unknownFlag}, did you mean ${list}?`
       );
     } else {
       withoutSuggestions.push(u);
@@ -293,12 +303,13 @@ const reportUnknownFlags = (
   });
 
   if (!hasSuggestions) {
-    if (withoutSuggestions.length > 1) {
-      errors.push(`Found unknown: ${withoutSuggestions.join(', ')}`);
-    } else if (withoutSuggestions.length > 0) {
-      const type = withoutSuggestions[0].startsWith('-') ? 'flag' : 'command';
-      errors.push(`Found unknown ${type}: ${withoutSuggestions.join(', ')}`);
-    }
+    const list = createList(withoutSuggestions, s => chalk.redBright(`"${s}"`));
+    const type =
+      withoutSuggestions.length === 1
+        ? (withoutSuggestions[0].startsWith('-') && ' flag') || ' command'
+        : '';
+
+    errors.push(`Found unknown${type}: ${list}`);
   }
 
   return reportError(errors.join('\n'), error);

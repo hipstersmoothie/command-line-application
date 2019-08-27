@@ -1,4 +1,5 @@
 import { app, Command, MultiCommand } from '../src';
+import stripAnsi from 'strip-ansi';
 
 beforeEach(() => {
   process.argv = [];
@@ -71,7 +72,7 @@ describe('single command app', () => {
 
     expect(() =>
       app(echo, { argv: ['--vakue', 'foo'], error: 'throw' })
-    ).toThrow('Found unknown flag "--vakue", did you mean "value"?');
+    ).toThrow();
   });
 
   test('can configure error type to return object', () => {
@@ -79,10 +80,44 @@ describe('single command app', () => {
     jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
     jest.spyOn(console, 'log').mockImplementation(() => {});
 
-    expect(app(echo, { argv: ['--vakue', 'foo'], error: 'object' })).toEqual({
-      error: 'Found unknown flag "--vakue", did you mean "value"?'
-    });
+    expect(
+      stripAnsi(app(echo, { argv: ['--vakue', 'foo'], error: 'object' })!.error)
+    ).toBe('Found unknown flag "--vakue", did you mean "--value"?');
   });
+
+  test('errors without required flag', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
+
+    app({ ...echo, require: ['value'] }, { argv: [] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
+});
+
+test('renders logos', () => {
+  const echo: MultiCommand = {
+    name: 'echo',
+    description: 'Print a string to the terminal',
+    logo: 'FOOBAR',
+    commands: [
+      {
+        name: 'lint',
+        description: 'find common errors'
+      }
+    ]
+  };
+  jest.spyOn(console, 'log').mockImplementationOnce(() => {});
+  app(echo, { argv: ['--help'] });
+
+  // @ts-ignore
+  expect(console.log.mock.calls[0]).toMatchSnapshot();
 });
 
 test('should display code', () => {
@@ -240,9 +275,9 @@ describe('multi command app', () => {
   test('can configure error type', () => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
 
-    expect(app(scripts, { argv: ['flint'], error: 'object' })).toEqual({
-      error: 'Found unknown command "flint", did you mean "lint"?'
-    });
+    expect(
+      stripAnsi(app(scripts, { argv: ['flint'], error: 'object' })!.error)
+    ).toBe('Found unknown command "flint", did you mean "lint"?');
   });
 });
 
@@ -369,5 +404,41 @@ describe('multi command app w/global singleton flags', () => {
 
   test('sub-multi-command help', () => {
     expect(app(scripts, { argv: ['test', '--version'] })!.version).toBe(true);
+  });
+});
+
+describe('multi command app sub-command groups', () => {
+  const testCommand: Command = {
+    name: 'test',
+    description: 'test the project',
+    examples: ['test --interactive'],
+    group: 'developer',
+    options: [
+      {
+        name: 'interactive',
+        type: Boolean,
+        description: 'Run the application in interactive mode'
+      }
+    ]
+  };
+
+  const styleCommand: Command = {
+    name: 'style-guide',
+    description: 'create a styleguide for the project',
+    group: 'design'
+  };
+
+  const scripts: MultiCommand = {
+    name: 'scripts',
+    description: 'My scripts package',
+    commands: [testCommand, styleCommand]
+  };
+
+  test('sub-multi-command help', () => {
+    jest.spyOn(console, 'log').mockImplementationOnce(() => {});
+    app(scripts, { argv: ['--help'] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
   });
 });

@@ -32,6 +32,7 @@
     "jest-snapshot-serializer-ansi": "^1.0.0",
     "prettier": "^1.17.1",
     "pretty-quick": "^1.10.0",
+    "strip-ansi": "^5.2.0",
     "tsdx": "^0.7.2",
     "tslib": "^1.9.3",
     "typescript": "^3.5.0-dev.20190518"
@@ -39,6 +40,7 @@
   "dependencies": {
     "@types/command-line-args": "^5.0.0",
     "@types/command-line-usage": "^5.0.1",
+    "chalk": "^2.4.1",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^5.0.5",
     "meant": "^1.0.1",
@@ -47,6 +49,20 @@
   "jest": {
     "snapshotSerializers": [
       "jest-snapshot-serializer-ansi"
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "target/coverage",
+    "coverageReporters": [
+      "text",
+      "cobertura",
+      "html",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "**/src/**",
+      "!**/__tests__/**",
+      "!**/*.snap",
+      "!**/dist/**"
     ]
   },
   "auto": {
