@@ -1,3 +1,15 @@
+# v0.7.0 (Tue Aug 27 2019)
+
+#### 🚀  Enhancement
+
+- add color output to unknown flag messages [#9](https://github.com/hipstersmoothie/command-line-application/pull/9) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.6.1 (Sun Aug 25 2019)
 
 #### 🐛  Bug Fix
