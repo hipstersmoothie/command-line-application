@@ -29,13 +29,13 @@ npm i --save command-line-application
 ### A simple single command app
 
 ```ts
-import app, { Command } from 'command-line-application';
+import { app, Command } from 'command-line-application';
 
 const echo: Command = {
   name: 'echo',
   description: 'Print a string to the terminal',
   examples: ['echo foo', 'echo "Intense message"'],
-  required: ['value'],
+  require: ['value'],
   options: [
     {
       name: 'value',
