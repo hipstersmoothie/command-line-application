@@ -1,3 +1,15 @@
+# v0.8.0 (Mon Sep 02 2019)
+
+#### 🚀  Enhancement
+
+- add ability to turn off camelCase [#10](https://github.com/hipstersmoothie/command-line-application/pull/10) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.7.0 (Tue Aug 27 2019)
 
 #### 🚀  Enhancement
