@@ -334,16 +334,18 @@ interface Options {
   showHelp?: boolean;
   /** Control how command-line-application reports errors */
   error?: ErrorReportingStyle;
+  /** Convert parsed options to camelCase */
+  camelCase?: boolean;
 }
 
 const parseCommand = (
   command: Command,
-  { argv, showHelp, error = 'exit' }: Options
+  { argv, showHelp, error = 'exit', camelCase = true }: Options
 ): Record<string, any> | undefined => {
   const args = initializeOptions(command.options);
   const { global, ...rest } = commandLineArgs(args, {
     stopAtFirstUnknown: true,
-    camelCase: true,
+    camelCase,
     argv
   });
 
@@ -387,12 +389,12 @@ const parseCommand = (
  */
 export function app(
   command: Command | MultiCommand,
-  { showHelp = true, argv, error = 'exit' }: Options = {}
+  { showHelp = true, argv, error = 'exit', camelCase = true }: Options = {}
 ):
   | (({ _command: string | string[] } | { error: string } | {}) &
       Record<string, any>)
   | undefined {
-  const appOptions = { showHelp, argv, error };
+  const appOptions = { showHelp, argv, error, camelCase };
 
   if (!('commands' in command)) {
     return parseCommand(command, appOptions);
@@ -401,7 +403,7 @@ export function app(
   const rootOptions = initializeOptions(command.options);
   const { global, _unknown, _all } = commandLineArgs(rootOptions, {
     stopAtFirstUnknown: true,
-    camelCase: true,
+    camelCase,
     argv
   });
 

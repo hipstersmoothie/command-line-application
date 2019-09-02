@@ -120,6 +120,28 @@ test('renders logos', () => {
   expect(console.log.mock.calls[0]).toMatchSnapshot();
 });
 
+test('can disable camelCase', () => {
+  const echo: Command = {
+    name: 'echo',
+    description: 'Print a string to the terminal',
+    options: [
+      {
+        name: 'lint_it',
+        description: 'find common errors',
+        type: Boolean
+      }
+    ]
+  };
+  jest.spyOn(console, 'log').mockImplementationOnce(() => {});
+  const args = app(echo, { camelCase: false, argv: ['--lint_it'] });
+
+  expect(args).toEqual(
+    expect.objectContaining({
+      lint_it: true
+    })
+  );
+});
+
 test('should display code', () => {
   const echo: Command = {
     name: 'echo',
