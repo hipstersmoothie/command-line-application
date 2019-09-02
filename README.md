@@ -162,6 +162,14 @@ Whether to show the help dialog. Defaults to `true`
 const args = app(echo, { showHelp: false });
 ```
 
+### camelCase
+
+Whether to camelCase the parsed options. Defaults to `true`
+
+```ts
+const args = app(echo, { camelCase: false });
+```
+
 ### error
 
 Configure how `command-line-application` reports errors.
