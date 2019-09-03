@@ -43,7 +43,7 @@
     "@types/command-line-usage": "^5.0.1",
     "chalk": "^2.4.1",
     "command-line-args": "^5.1.1",
-    "command-line-usage": "^5.0.5",
+    "command-line-usage": "^6.0.0",
     "meant": "^1.0.1",
     "remove-markdown": "^0.3.0"
   },
