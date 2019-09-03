@@ -27,7 +27,8 @@
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "@types/remove-markdown": "^0.1.1",
-    "auto": "^7.0.7",
+    "auto": "7.4.3",
+    "auto-config-hipstersmoothie": "1.0.4",
     "husky": "^2.3.0",
     "jest-snapshot-serializer-ansi": "^1.0.0",
     "prettier": "^1.17.1",
@@ -66,9 +67,6 @@
     ]
   },
   "auto": {
-    "plugins": [
-      "npm",
-      "released"
-    ]
+    "extends": "hipstersmoothie"
   }
 }
