@@ -1,3 +1,15 @@
+# v0.9.1 (Sat Oct 05 2019)
+
+#### 🐛  Bug Fix
+
+- make tslib a dep [#30](https://github.com/hipstersmoothie/command-line-application/pull/30) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.9.0 (Sat Oct 05 2019)
 
 #### 🚀  Enhancement
