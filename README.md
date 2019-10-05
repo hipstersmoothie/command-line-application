@@ -144,6 +144,31 @@ const echo: Command = {
 };
 ```
 
+### Require One or Another
+
+To require on of multiple flags simply make on of the items in the required array an array of `n` options.
+
+```ts
+const echo: Command = {
+  name: 'one-or-another',
+  description: "Errors if one of the flags isn't provided",
+  examples: ['one-or-another --a', 'one-or-another --b'],
+  required: [['a', 'b']],
+  options: [
+    {
+      name: 'a',
+      type: Boolean,
+      description: 'One options'
+    },
+    {
+      name: 'b',
+      type: Boolean,
+      description: 'another option'
+    }
+  ]
+};
+```
+
 ## Options
 
 ### argv

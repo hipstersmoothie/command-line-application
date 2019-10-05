@@ -28,8 +28,17 @@ export type Command = {
   description: string;
   /** Options that the command can accept */
   options?: Option[];
-  /** A list of what options are required */
-  require?: string[];
+  /**
+   * A list of what options are required.
+   * You can also have 1 of multiple required options.
+   * In the following example c is always required and a or b is required.
+   *
+   * @example
+   * {
+   *   require: [['a', 'b'], 'c']
+   * }
+   */
+  require?: (string | string[])[];
   /** Examples showcasing common usage of the command */
   examples?: (string | Example)[];
   /** What group to render the command in a MultiCommand */
@@ -360,13 +369,19 @@ const parseCommand = (
   }
 
   if (command.require) {
-    const missing: string[] = [];
-
-    command.require.forEach(r => {
-      if (rest._all[r] === undefined) {
-        missing.push(r);
-      }
-    });
+    const missing = command.require
+      .filter(
+        option =>
+          (typeof option === 'string' && !(option in rest._all)) ||
+          (typeof option === 'object' && !option.find(o => o in rest._all)) ||
+          // tslint:disable-next-line strict-type-predicates
+          (typeof option === 'string' && rest._all[option] === null)
+      )
+      .map(option =>
+        typeof option === 'string'
+          ? `--${option}`
+          : `(--${option.join(' or --')})`
+      );
 
     if (missing.length > 0) {
       const multiple = missing.length > 1;

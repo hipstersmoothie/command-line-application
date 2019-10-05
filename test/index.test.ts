@@ -99,6 +99,21 @@ describe('single command app', () => {
     // @ts-ignore
     expect(process.exit).toHaveBeenCalledWith(1);
   });
+
+  test('errors without required flag - or', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
+
+    app({ ...echo, require: [['a', 'b'], 'c'] }, { argv: [] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
 });
 
 test('renders logos', () => {
