@@ -29,7 +29,7 @@
     "@types/remove-markdown": "0.1.1",
     "auto": "7.6.2",
     "auto-config-hipstersmoothie": "1.0.4",
-    "husky": "3.0.7",
+    "husky": "3.0.8",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "prettier": "1.18.2",
     "pretty-quick": "1.11.1",
