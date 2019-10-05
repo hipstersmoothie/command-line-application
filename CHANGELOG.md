@@ -1,3 +1,39 @@
+# v0.9.0 (Sat Oct 05 2019)
+
+#### 🚀  Enhancement
+
+- allow for complex required statements [#29](https://github.com/hipstersmoothie/command-line-application/pull/29) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### 🏠  Internal
+
+- use shared config [#14](https://github.com/hipstersmoothie/command-line-application/pull/14) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### 🔩 Dependency Updates
+
+- Update dependency auto to v7.8.0 [#28](https://github.com/hipstersmoothie/command-line-application/pull/28) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency husky to v3.0.8 [#27](https://github.com/hipstersmoothie/command-line-application/pull/27) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency auto to v7.6.2 [#26](https://github.com/hipstersmoothie/command-line-application/pull/26) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency tsdx to v0.9.3 [#25](https://github.com/hipstersmoothie/command-line-application/pull/25) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency husky to v3.0.7 [#24](https://github.com/hipstersmoothie/command-line-application/pull/24) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency auto to v7.6.0 [#23](https://github.com/hipstersmoothie/command-line-application/pull/23) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency typescript to v3.6.3 [#22](https://github.com/hipstersmoothie/command-line-application/pull/22) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency auto to v7.4.5 [#21](https://github.com/hipstersmoothie/command-line-application/pull/21) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency tsdx to v0.9.2 [#20](https://github.com/hipstersmoothie/command-line-application/pull/20) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency auto to v7.4.4 [#19](https://github.com/hipstersmoothie/command-line-application/pull/19) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency husky to v3 [#18](https://github.com/hipstersmoothie/command-line-application/pull/18) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency tsdx to v0.9.1 [#16](https://github.com/hipstersmoothie/command-line-application/pull/16) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency typescript to v3.6.2 [#17](https://github.com/hipstersmoothie/command-line-application/pull/17) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency @types/jest to v24.0.18 [#15](https://github.com/hipstersmoothie/command-line-application/pull/15) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency command-line-usage to v6 [#13](https://github.com/hipstersmoothie/command-line-application/pull/13) ([@renovate-bot](https://github.com/renovate-bot))
+- Pin dependencies [#12](https://github.com/hipstersmoothie/command-line-application/pull/12) ([@renovate-bot](https://github.com/renovate-bot))
+
+#### Authors: 2
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+- Renovate Bot ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v0.8.1 (Tue Sep 03 2019)
 
 #### 🐛  Bug Fix
