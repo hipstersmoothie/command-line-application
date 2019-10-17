@@ -4,6 +4,7 @@
   "description": "A helpful wrapper around command-line-args and command-line-usage",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "license": "MIT",
   "files": [
     "dist"
   ],
