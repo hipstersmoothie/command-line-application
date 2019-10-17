@@ -156,7 +156,7 @@ const printUsage = (command: Command) => {
     sections.push(
       {
         header: 'Options',
-        optionList: options
+        optionList: options.filter(o => o.group !== 'global')
       },
       {
         header: 'Global Options',
@@ -167,8 +167,7 @@ const printUsage = (command: Command) => {
   } else {
     sections.push({
       header: 'Options',
-      optionList: [...options, ...globalOptions],
-      group: ['_none', 'global']
+      optionList: [...options, ...globalOptions]
     });
   }
 
