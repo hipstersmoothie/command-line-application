@@ -1,3 +1,15 @@
+# v0.9.2 (Thu Oct 17 2019)
+
+#### 🐛  Bug Fix
+
+- Create LICENSE [#37](https://github.com/hipstersmoothie/command-line-application/pull/37) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.9.1 (Sat Oct 05 2019)
 
 #### 🐛  Bug Fix
