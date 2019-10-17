@@ -1,3 +1,15 @@
+# v0.9.3 (Thu Oct 17 2019)
+
+#### 🐛  Bug Fix
+
+- be a little smarter when sorting optionLists [#38](https://github.com/hipstersmoothie/command-line-application/pull/38) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.9.2 (Thu Oct 17 2019)
 
 #### 🐛  Bug Fix
