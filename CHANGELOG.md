@@ -1,3 +1,15 @@
+# v0.9.4 (Tue Oct 22 2019)
+
+#### 🐛  Bug Fix
+
+- Fix Error reporting with multiple args [#39](https://github.com/hipstersmoothie/command-line-application/pull/39) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.9.3 (Thu Oct 17 2019)
 
 #### 🐛  Bug Fix
