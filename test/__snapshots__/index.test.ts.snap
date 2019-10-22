@@ -241,6 +241,12 @@ Examples
 "
 `;
 
+exports[`single command app errors on unknown flag + known flags 1`] = `
+Array [
+  "Found unknown flag: \\"--error\\"",
+]
+`;
+
 exports[`single command app errors on unknown flag 1`] = `
 Array [
   "

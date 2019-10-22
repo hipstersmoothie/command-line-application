@@ -282,45 +282,25 @@ const createList = (list: string[], transform: (value: string) => string) => {
 
 const reportUnknownFlags = (
   args: (Option | Command)[],
-  unknown: string[],
-  error: ErrorReportingStyle
+  [unknown]: string[],
+  errorStyle: ErrorReportingStyle
 ) => {
-  const argNames = args.map(a => a.name);
-  const withoutSuggestions: string[] = [];
-  const errors: string[] = [];
-  let hasSuggestions = false;
+  const type = unknown.startsWith('-') ? 'flag' : 'command';
+  const suggestions = meant(
+    unknown,
+    args.map(a => (type === 'flag' ? `--${a.name}` : a.name))
+  );
 
-  unknown.forEach((u: string) => {
-    const type = u.startsWith('-') ? 'flag' : 'command';
-    const suggestions = meant(
-      u,
-      argNames.map(a => (type === 'flag' ? `--${a}` : a))
-    );
+  let error: string;
 
-    if (suggestions.length) {
-      hasSuggestions = true;
-      const unknownFlag = chalk.redBright(`"${u}"`);
-      const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
-
-      errors.push(
-        `Found unknown ${type} ${unknownFlag}, did you mean ${list}?`
-      );
-    } else {
-      withoutSuggestions.push(u);
-    }
-  });
-
-  if (!hasSuggestions) {
-    const list = createList(withoutSuggestions, s => chalk.redBright(`"${s}"`));
-    const type =
-      withoutSuggestions.length === 1
-        ? (withoutSuggestions[0].startsWith('-') && ' flag') || ' command'
-        : '';
-
-    errors.push(`Found unknown${type}: ${list}`);
+  if (suggestions.length) {
+    const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
+    error = `Found unknown ${type} "${unknown}", did you mean ${list}?`;
+  } else {
+    error = `Found unknown ${type}: "${unknown}"`;
   }
 
-  return reportError(errors.join('\n'), error);
+  return reportError(error, errorStyle);
 };
 
 const initializeOptions = (options: Option[] = []) => {

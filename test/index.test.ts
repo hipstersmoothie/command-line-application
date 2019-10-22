@@ -50,6 +50,19 @@ describe('single command app', () => {
     expect(process.exit).toHaveBeenCalledWith(1);
   });
 
+  test('errors on unknown flag + known flags', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
+
+    app(echo, { argv: ['--error', '--value=foo'] });
+
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
+
   test('suggests typo correction', () => {
     // @ts-ignore
     jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
