@@ -288,7 +288,6 @@ const reportUnknownFlags = (
   const argNames = args.map(a => a.name);
   const withoutSuggestions: string[] = [];
   const errors: string[] = [];
-  let hasSuggestions = false;
 
   unknown.forEach((u: string) => {
     const type = u.startsWith('-') ? 'flag' : 'command';
@@ -305,7 +304,6 @@ const reportUnknownFlags = (
     }
 
     if (suggestions.length) {
-      hasSuggestions = true;
       const unknownFlag = chalk.redBright(`"${u}"`);
       const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
 
@@ -317,7 +315,7 @@ const reportUnknownFlags = (
     }
   });
 
-  if (!hasSuggestions) {
+  if (withoutSuggestions.length) {
     const list = createList(withoutSuggestions, s => chalk.redBright(`"${s}"`));
     const type =
       withoutSuggestions.length === 1
