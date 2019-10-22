@@ -285,6 +285,7 @@ const reportUnknownFlags = (
   [unknown]: string[],
   errorStyle: ErrorReportingStyle
 ) => {
+  const unknownStyled = chalk.redBright(`"${unknown}"`);
   const type = unknown.startsWith('-') ? 'flag' : 'command';
   const suggestions = meant(
     unknown,
@@ -295,9 +296,9 @@ const reportUnknownFlags = (
 
   if (suggestions.length) {
     const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
-    error = `Found unknown ${type} "${unknown}", did you mean ${list}?`;
+    error = `Found unknown ${type} ${unknownStyled}, did you mean ${list}?`;
   } else {
-    error = `Found unknown ${type}: "${unknown}"`;
+    error = `Found unknown ${type}: ${unknownStyled}`;
   }
 
   return reportError(error, errorStyle);
