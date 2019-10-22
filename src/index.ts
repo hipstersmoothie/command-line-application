@@ -282,45 +282,26 @@ const createList = (list: string[], transform: (value: string) => string) => {
 
 const reportUnknownFlags = (
   args: (Option | Command)[],
-  unknown: string[],
+  [u]: string[],
   error: ErrorReportingStyle
 ) => {
   const argNames = args.map(a => a.name);
-  const withoutSuggestions: string[] = [];
   const errors: string[] = [];
 
-  unknown.forEach((u: string) => {
-    const type = u.startsWith('-') ? 'flag' : 'command';
-    const suggestions = meant(
-      u,
-      argNames.map(a => (type === 'flag' ? `--${a}` : a))
-    );
+  const type = u.startsWith('-') ? 'flag' : 'command';
+  const suggestions = meant(
+    u,
+    argNames.map(a => (type === 'flag' ? `--${a}` : a))
+  );
 
-    // Don't suggest a flag if the flag matches exactly.
-    // Since we use stopAtFirstUnknown it is likely that there
-    // are correct flags that just haven't been parsed.
-    if (suggestions.some(s => s === u)) {
-      return;
-    }
+  if (suggestions.length) {
+    const unknownFlag = chalk.redBright(`"${u}"`);
+    const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
 
-    if (suggestions.length) {
-      const unknownFlag = chalk.redBright(`"${u}"`);
-      const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
-
-      errors.push(
-        `Found unknown ${type} ${unknownFlag}, did you mean ${list}?`
-      );
-    } else {
-      withoutSuggestions.push(u);
-    }
-  });
-
-  if (withoutSuggestions.length) {
-    const list = createList(withoutSuggestions, s => chalk.redBright(`"${s}"`));
-    const type =
-      withoutSuggestions.length === 1
-        ? (withoutSuggestions[0].startsWith('-') && ' flag') || ' command'
-        : '';
+    errors.push(`Found unknown ${type} ${unknownFlag}, did you mean ${list}?`);
+  } else {
+    const list = createList([u], s => chalk.redBright(`"${s}"`));
+    const type = (u.startsWith('-') && ' flag') || ' command';
 
     errors.push(`Found unknown${type}: ${list}`);
   }
