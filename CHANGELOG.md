@@ -1,3 +1,24 @@
+# v0.9.5 (Tue Oct 22 2019)
+
+#### 🐛  Bug Fix
+
+- add red styles back [#40](https://github.com/hipstersmoothie/command-line-application/pull/40) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### 🔩 Dependency Updates
+
+- Update dependency auto to v7.12.0 [#36](https://github.com/hipstersmoothie/command-line-application/pull/36) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency @types/jest to v24.0.19 [#34](https://github.com/hipstersmoothie/command-line-application/pull/34) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency pretty-quick to v2 [#33](https://github.com/hipstersmoothie/command-line-application/pull/33) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency husky to v3.0.9 [#32](https://github.com/hipstersmoothie/command-line-application/pull/32) ([@renovate-bot](https://github.com/renovate-bot))
+- Update dependency typescript to v3.6.4 [#31](https://github.com/hipstersmoothie/command-line-application/pull/31) ([@renovate-bot](https://github.com/renovate-bot))
+
+#### Authors: 2
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+- Renovate Bot ([@renovate-bot](https://github.com/renovate-bot))
+
+---
+
 # v0.9.4 (Tue Oct 22 2019)
 
 #### 🐛  Bug Fix
