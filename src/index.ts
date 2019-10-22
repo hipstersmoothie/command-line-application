@@ -283,30 +283,24 @@ const createList = (list: string[], transform: (value: string) => string) => {
 const reportUnknownFlags = (
   args: (Option | Command)[],
   [unknown]: string[],
-  error: ErrorReportingStyle
+  errorStyle: ErrorReportingStyle
 ) => {
-  const argNames = args.map(a => a.name);
-  const errors: string[] = [];
-
   const type = unknown.startsWith('-') ? 'flag' : 'command';
   const suggestions = meant(
     unknown,
-    argNames.map(a => (type === 'flag' ? `--${a}` : a))
+    args.map(a => (type === 'flag' ? `--${a.name}` : a.name))
   );
 
+  let error: string;
+
   if (suggestions.length) {
-    const unknownFlag = chalk.redBright(`"${unknown}"`);
     const list = createList(suggestions, s => chalk.greenBright(`"${s}"`));
-
-    errors.push(`Found unknown ${type} ${unknownFlag}, did you mean ${list}?`);
+    error = `Found unknown ${type} "${unknown}", did you mean ${list}?`;
   } else {
-    const list = createList([unknown], s => chalk.redBright(`"${s}"`));
-    const type = (unknown.startsWith('-') && ' flag') || ' command';
-
-    errors.push(`Found unknown${type}: ${list}`);
+    error = `Found unknown ${type}: "${unknown}"`;
   }
 
-  return reportError(errors.join('\n'), error);
+  return reportError(error, errorStyle);
 };
 
 const initializeOptions = (options: Option[] = []) => {
