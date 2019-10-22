@@ -297,6 +297,13 @@ const reportUnknownFlags = (
       argNames.map(a => (type === 'flag' ? `--${a}` : a))
     );
 
+    // Don't suggest a flag if the flag matches exactly.
+    // Since we use stopAtFirstUnknown it is likely that there
+    // are correct flags that just haven't been parsed.
+    if (suggestions.some(s => s === u)) {
+      return;
+    }
+
     if (suggestions.length) {
       hasSuggestions = true;
       const unknownFlag = chalk.redBright(`"${u}"`);
