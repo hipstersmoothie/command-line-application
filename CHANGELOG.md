@@ -1,3 +1,15 @@
+# v0.9.6 (Wed Jan 15 2020)
+
+#### 🐛  Bug Fix
+
+- handle curlies in the footer [#50](https://github.com/hipstersmoothie/command-line-application/pull/50) ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+#### Authors: 1
+
+- Andrew Lisowski ([@hipstersmoothie](https://github.com/hipstersmoothie))
+
+---
+
 # v0.9.5 (Tue Oct 22 2019)
 
 #### 🐛  Bug Fix
