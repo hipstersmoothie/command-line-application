@@ -80,6 +80,40 @@ Global Options
 ]
 `;
 
+exports[`multi command app should handle curlies in descriptions 1`] = `
+Array [
+  "
+scripts
+
+  My scripts package 
+
+Synopsis
+
+  $ scripts <command> <options> 
+
+Commands
+
+  lint   lint the project 
+  test   test the project 
+
+Global Options
+
+  -v, --verbose    Log a bunch of stuff    
+  -h, --help       Display the help output 
+
+Additional Info
+
+  Only run this if you really need to ({ foo }) => { console.log(\\"\\") } 
+",
+]
+`;
+
+exports[`multi command app should handle curlies in descriptions 2`] = `
+Array [
+  "Found unknown command \\"flint\\", did you mean \\"lint\\"?",
+]
+`;
+
 exports[`multi command app sub-command groups sub-multi-command help 1`] = `
 Array [
   "

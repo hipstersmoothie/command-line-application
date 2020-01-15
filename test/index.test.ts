@@ -322,6 +322,27 @@ describe('multi command app', () => {
     expect(process.exit).toHaveBeenCalledWith(1);
   });
 
+  test('should handle curlies in descriptions', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+
+    app(
+      {
+        ...scripts,
+        footer: {
+          header: 'Additional Info',
+          content:
+            'Only run this if you really need to ({ foo }) => { console.log("") }'
+        }
+      },
+      { argv: ['flint'] }
+    );
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+  });
+
   test('can configure error type', () => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
 

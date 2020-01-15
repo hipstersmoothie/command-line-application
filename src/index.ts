@@ -110,30 +110,34 @@ function addFooter(command: Command, sections: Section[]) {
       : [command.footer];
 
     footers.forEach(f => {
+      let content = !('content' in f)
+        ? undefined
+        : typeof f.content === 'string'
+        ? removeMarkdown(
+            f.code
+              ? f.content
+                  .split('\n')
+                  .map(s => (s.includes('```') ? undefined : `| ${s}`))
+                  .join('\n')
+              : f.content,
+            {
+              stripListLeaders: false
+            }
+          )
+        : Array.isArray(f.content)
+        ? f.content
+        : undefined;
+
+      if (typeof content === 'string') {
+        content = content.replace(/}/g, '\\}').replace(/{/g, '\\{');
+      }
+
       sections.push({
         ...f,
         header: f.header
           ? removeMarkdown(f.header, { stripListLeaders: false })
           : undefined,
-        content: !('content' in f)
-          ? undefined
-          : typeof f.content === 'string'
-          ? removeMarkdown(
-              f.code
-                ? f.content
-                    .replace(/}/g, '\\}')
-                    .replace(/{/g, '\\{')
-                    .split('\n')
-                    .map(s => (s.includes('```') ? undefined : `| ${s}`))
-                    .join('\n')
-                : f.content,
-              {
-                stripListLeaders: false
-              }
-            )
-          : Array.isArray(f.content)
-          ? f.content
-          : undefined
+        content
       });
     });
   }
