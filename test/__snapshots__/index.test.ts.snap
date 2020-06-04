@@ -307,7 +307,7 @@ Array [
 ]
 `;
 
-exports[`single command app errors without multple required flags - or 1`] = `
+exports[`single command app errors without multiple required flags - or 1`] = `
 Array [
   "
 echo
@@ -327,7 +327,7 @@ Examples
 ]
 `;
 
-exports[`single command app errors without multple required flags - or 2`] = `
+exports[`single command app errors without multiple required flags - or 2`] = `
 Array [
   "Missing required arg: (--a or --b,c)",
 ]
@@ -384,10 +384,6 @@ Array [
   "Missing required arg: --value",
 ]
 `;
-
-exports[`single command app errors without required flags - or 1`] = `undefined`;
-
-exports[`single command app errors without required flags - or 2`] = `undefined`;
 
 exports[`single command app help 1`] = `
 Array [

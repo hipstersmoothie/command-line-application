@@ -128,7 +128,7 @@ describe('single command app', () => {
     expect(process.exit).toHaveBeenCalledWith(1);
   });
 
-  test('errors without multple required flags - or', () => {
+  test('errors without multiple required flags - or', () => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
     // @ts-ignore
     jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
