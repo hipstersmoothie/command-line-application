@@ -352,6 +352,11 @@ const parseCommand = (
     return;
   }
 
+  const formatArrayOption = (option: any): string =>
+    typeof option === 'string'
+      ? `--${option}`
+      : option.map(formatArrayOption).join(', ');
+
   if (command.require) {
     const missing = command.require
       .filter(
@@ -369,7 +374,7 @@ const parseCommand = (
       .map(option =>
         typeof option === 'string'
           ? `--${option}`
-          : `(--${option.join(' or --')})`
+          : `(${(option as any[]).map(formatArrayOption).join(' or ')})`
       );
 
     if (missing.length > 0) {

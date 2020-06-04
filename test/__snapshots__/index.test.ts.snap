@@ -329,7 +329,7 @@ Examples
 
 exports[`single command app errors without multiple required flags - or 2`] = `
 Array [
-  "Missing required arg: (--a or --b,c)",
+  "Missing required arg: (--a or --b, --c)",
 ]
 `;
 
