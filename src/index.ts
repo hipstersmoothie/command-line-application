@@ -38,7 +38,7 @@ export type Command = {
    *   require: [['a', 'b'], 'c']
    * }
    */
-  require?: (string | string[])[];
+  require?: (string | string[] | (string | string[])[])[];
   /** Examples showcasing common usage of the command */
   examples?: (string | Example)[];
   /** What group to render the command in a MultiCommand */
@@ -357,7 +357,12 @@ const parseCommand = (
       .filter(
         option =>
           (typeof option === 'string' && !(option in rest._all)) ||
-          (typeof option === 'object' && !option.find(o => o in rest._all)) ||
+          (typeof option === 'object' &&
+            !option.find(
+              o =>
+                (typeof o === 'string' && o in rest._all) ||
+                (typeof o === 'object' && !o.find(op => op in rest._all))
+            )) ||
           // tslint:disable-next-line strict-type-predicates
           (typeof option === 'string' && rest._all[option] === null)
       )
