@@ -317,6 +317,7 @@ echo
 Options
 
   --b string                            
+  --c string                            
   -h, --help    Display the help output 
 
 Examples
@@ -332,6 +333,8 @@ Array [
   "Missing required arg: (--a or --b, --c)",
 ]
 `;
+
+exports[`single command app errors without multiple required flags - or 3`] = `undefined`;
 
 exports[`single command app errors without required flag - or 1`] = `
 Array [
