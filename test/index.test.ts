@@ -136,16 +136,33 @@ describe('single command app', () => {
     app(
       {
         ...echo,
-        options: [{ name: 'b', description: '' }],
+        options: [
+          { name: 'b', description: '' },
+          { name: 'c', description: '' }
+        ],
         require: [['a', ['b', 'c']]]
       },
       { argv: ['--b', 'b'] }
+    );
+
+    app(
+      {
+        ...echo,
+        options: [
+          { name: 'b', description: '' },
+          { name: 'c', description: '' }
+        ],
+        require: [['a', ['b', 'c']]]
+      },
+      { argv: ['--b', 'b', '--c', 'c'] }
     );
 
     // @ts-ignore
     expect(console.log.mock.calls[0]).toMatchSnapshot();
     // @ts-ignore
     expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[2]).toMatchSnapshot();
     // @ts-ignore
     expect(process.exit).toHaveBeenCalledWith(1);
   });

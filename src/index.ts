@@ -366,7 +366,7 @@ const parseCommand = (
             !option.find(
               o =>
                 (typeof o === 'string' && o in rest._all) ||
-                (typeof o === 'object' && !o.find(op => op in rest._all))
+                (typeof o === 'object' && !o.find(op => !(op in rest._all)))
             )) ||
           // tslint:disable-next-line strict-type-predicates
           (typeof option === 'string' && rest._all[option] === null)
