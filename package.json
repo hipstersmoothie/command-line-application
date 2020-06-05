@@ -1,6 +1,6 @@
 {
   "name": "command-line-application",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "A helpful wrapper around command-line-args and command-line-usage",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
