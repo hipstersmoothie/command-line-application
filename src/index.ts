@@ -38,7 +38,7 @@ export type Command = {
    *   require: [['a', 'b'], 'c']
    * }
    */
-  require?: (string | string[])[];
+  require?: (string | string[] | (string | string[])[])[];
   /** Examples showcasing common usage of the command */
   examples?: (string | Example)[];
   /** What group to render the command in a MultiCommand */
@@ -352,19 +352,29 @@ const parseCommand = (
     return;
   }
 
+  const formatArrayOption = (option: any): string =>
+    typeof option === 'string'
+      ? `--${option}`
+      : option.map(formatArrayOption).join(', ');
+
   if (command.require) {
     const missing = command.require
       .filter(
         option =>
           (typeof option === 'string' && !(option in rest._all)) ||
-          (typeof option === 'object' && !option.find(o => o in rest._all)) ||
+          (typeof option === 'object' &&
+            !option.find(
+              o =>
+                (typeof o === 'string' && o in rest._all) ||
+                (typeof o === 'object' && !o.find(op => op in rest._all))
+            )) ||
           // tslint:disable-next-line strict-type-predicates
           (typeof option === 'string' && rest._all[option] === null)
       )
       .map(option =>
         typeof option === 'string'
           ? `--${option}`
-          : `(--${option.join(' or --')})`
+          : `(${(option as any[]).map(formatArrayOption).join(' or ')})`
       );
 
     if (missing.length > 0) {

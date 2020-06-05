@@ -307,6 +307,32 @@ Array [
 ]
 `;
 
+exports[`single command app errors without multiple required flags - or 1`] = `
+Array [
+  "
+echo
+
+  Print a string to the terminal 
+
+Options
+
+  --b string                            
+  -h, --help    Display the help output 
+
+Examples
+
+  echo foo               
+  echo \\"Intense message\\" 
+",
+]
+`;
+
+exports[`single command app errors without multiple required flags - or 2`] = `
+Array [
+  "Missing required arg: (--a or --b, --c)",
+]
+`;
+
 exports[`single command app errors without required flag - or 1`] = `
 Array [
   "

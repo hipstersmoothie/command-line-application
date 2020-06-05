@@ -127,6 +127,28 @@ describe('single command app', () => {
     // @ts-ignore
     expect(process.exit).toHaveBeenCalledWith(1);
   });
+
+  test('errors without multiple required flags - or', () => {
+    jest.spyOn(console, 'log').mockImplementation(() => {});
+    // @ts-ignore
+    jest.spyOn(process, 'exit').mockImplementationOnce(() => {});
+
+    app(
+      {
+        ...echo,
+        options: [{ name: 'b', description: '' }],
+        require: [['a', ['b', 'c']]]
+      },
+      { argv: ['--b', 'b'] }
+    );
+
+    // @ts-ignore
+    expect(console.log.mock.calls[0]).toMatchSnapshot();
+    // @ts-ignore
+    expect(console.log.mock.calls[1]).toMatchSnapshot();
+    // @ts-ignore
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
 });
 
 test('renders logos', () => {
@@ -193,7 +215,7 @@ test('should display code', () => {
               ]
             }
           }
-        }      
+        }
        \`\`\``
       }
     ]
