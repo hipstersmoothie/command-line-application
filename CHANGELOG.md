@@ -1,3 +1,15 @@
+# v0.10.1 (Fri Jun 05 2020)
+
+#### 🐛  Bug Fix
+
+- Better test case and fix logic [#61](https://github.com/hipstersmoothie/command-line-application/pull/61) ([@hborawski](https://github.com/hborawski))
+
+#### Authors: 1
+
+- Harris Borawski ([@hborawski](https://github.com/hborawski))
+
+---
+
 # v0.10.0 (Fri Jun 05 2020)
 
 #### 🚀  Enhancement
