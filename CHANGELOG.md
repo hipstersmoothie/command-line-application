@@ -1,3 +1,15 @@
+# v0.10.0 (Fri Jun 05 2020)
+
+#### 🚀  Enhancement
+
+- mark multiple options as required vs other options [#60](https://github.com/hipstersmoothie/command-line-application/pull/60) ([@hborawski](https://github.com/hborawski))
+
+#### Authors: 1
+
+- Harris Borawski ([@hborawski](https://github.com/hborawski))
+
+---
+
 # v0.9.6 (Wed Jan 15 2020)
 
 #### 🐛  Bug Fix
