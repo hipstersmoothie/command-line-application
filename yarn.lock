@@ -5009,6 +5009,11 @@ meant@^1.0.1:
   resolved "https://registry.yarnpkg.com/meant/-/meant-1.0.1.tgz#66044fea2f23230ec806fb515efea29c44d2115d"
   integrity sha512-UakVLFjKkbbUwNWJ2frVLnnAtbb7D7DsloxRd3s/gDpI8rdv8W5Hp3NaDb+POBI1fQdeussER6NB8vpcRURvlg==
 
+meant@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/meant/-/meant-2.0.1.tgz#9827ca767093eabfb5bfad070e60a8cc21909a82"
+  integrity sha512-ujdpKVtGk2bJJnQHaJknSjuE7955b55kO8v+1bEScXsy3H/vagnOAiUXTzb/kTRHbDVdY0Kc6PS3jHLYo8RpvA==
+
 mem@^4.0.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/mem/-/mem-4.3.0.tgz#461af497bc4ae09608cdb2e60eefb69bff744178"
