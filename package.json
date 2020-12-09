@@ -44,7 +44,7 @@
     "chalk": "^2.4.1",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.0.0",
-    "meant": "^1.0.1",
+    "meant": "^2.0.0",
     "remove-markdown": "^0.3.0",
     "tslib": "1.10.0"
   },
